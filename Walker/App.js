@@ -9,6 +9,7 @@ import {
   Platform,
   StyleSheet,
   Text,
+  TextInput,
   View
 } from 'react-native';
 
@@ -38,10 +39,24 @@ const instructions = Platform.select({
 // }
 
 export default class Background extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {text: ''};
+  }
   render () {
     return (
       <View style={{flex:1}}>
-        <View style={{flex:4, backgroundColor: '#b0e0e6'}}/>
+        <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
+          <TextInput
+            style={{height: 40}}
+            placeholder="Username"
+            onChangeText={(text) => this.setState({text})}
+          />
+          <Text>
+            {this.state.text}
+          </Text>
+        </View>
         <View style={{flex:1, backgroundColor: '#808080'}}/>
       </View>
     );
