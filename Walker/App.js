@@ -19,19 +19,30 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class App extends Component<{}> {
-  render() {
+// export default class App extends Component<{}> {
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//         <Text style={styles.welcome}>
+//           Welcome to React Native!
+//         </Text>
+//         <Text style={styles.instructions}>
+//           To get started, edit App.js
+//         </Text>
+//         <Text style={styles.instructions}>
+//           {instructions}
+//         </Text>
+//       </View>
+//     );
+//   }
+// }
+
+export default class Background extends React.Component {
+  render () {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+      <View style={{flex:1}}>
+        <View style={{flex:4, backgroundColor: '#b0e0e6'}}/>
+        <View style={{flex:1, backgroundColor: '#808080'}}/>
       </View>
     );
   }
