@@ -61,7 +61,10 @@ export class LoginScreen extends React.Component {
 export class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-  }
+    this.state = {location: '',
+                 };
+  };
+  
   static navigationOptions = ({navigation}) => ({
     title: "Welcome " + navigation.state.params.name
   });
@@ -73,7 +76,13 @@ export class HomeScreen extends React.Component {
           <Text>
             {params.name}
           </Text>
-          
+           <View style={[position: 'absolute', bottom: 0, left: 0, right: 0, height: 50]}>
+
+           <TextInput
+            style={{height: 40}}
+            placeholder="location"
+            onChangeText={(password) => this.setState({location})}
+          /> </View>
         </View>
         <View style={{flex:1, backgroundColor: '#808080'}}/>
       </View>
@@ -84,6 +93,7 @@ export class HomeScreen extends React.Component {
 const Walker = StackNavigator({
   Login: {screen: LoginScreen},
   Home:  {screen: HomeScreen},
+
 });
 
 export default Walker;
