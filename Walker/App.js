@@ -67,7 +67,9 @@ export class HomeScreen extends React.Component {
         longitude: -122.4324,
         latitudeDelta:  0.0922,
         longitudeDelta: 0.0421,
-      }}
+      },
+      location: '',
+    }
   }
   static navigationOptions = ({navigation}) => ({
     title: "Welcome " + navigation.state.params.name
@@ -84,11 +86,26 @@ export class HomeScreen extends React.Component {
               longitude: -122.4324,
               latitudeDelta:  0.0922,
               longitudeDelta: 0.0421,
-            }}
+            }}/>
+      <View style={{flex:1}}>
+        <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
+          <Text>
+            {params.name}
+          </Text>
+           <View style={[position: 'absolute', bottom: 0, left: 0, right: 0, height: 50]}>
+
+           <TextInput
+            style={{height: 40}}
+            placeholder="location"
+            onChangeText={(password) => this.setState({location})}
+          /> </View>
+          <MapView
+            region={this.state.region}
+            onRegionChange={this.onRegionChange}
           />
+
         </View>
-        // <View style={{flex:1, backgroundColor: '#808080'}}/>
-      // </View>
+      </View>
     );
   }
   // this is for dealing with the map view
@@ -111,6 +128,7 @@ export class HomeScreen extends React.Component {
 const Walker = StackNavigator({
   Login: {screen: LoginScreen},
   Home:  {screen: HomeScreen},
+
 });
 
 export default Walker;
