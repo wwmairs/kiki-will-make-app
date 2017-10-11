@@ -4,58 +4,77 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   Platform,
   StyleSheet,
   Text,
   TextInput,
-  View
-} from 'react-native';
+  View,
+  Button,
+  // AppRegistry
+} from 'react-native'
+import {
+  StackNavigator,
+} from 'react-navigation'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-// export default class App extends Component<{}> {
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Text style={styles.welcome}>
-//           Welcome to React Native!
-//         </Text>
-//         <Text style={styles.instructions}>
-//           To get started, edit App.js
-//         </Text>
-//         <Text style={styles.instructions}>
-//           {instructions}
-//         </Text>
-//       </View>
-//     );
-//   }
-// }
-
-export default class Background extends React.Component {
-
+export class LoginScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Login',
+  };
   constructor(props) {
     super(props);
-    this.state = {text: ''};
-  }
+    this.state = {username: '',
+                  password: '',
+                  message: ''};
+  };
   render () {
+    const {navigate} = this.props.navigation;
     return (
       <View style={{flex:1}}>
         <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
           <TextInput
             style={{height: 40}}
             placeholder="Username"
-            onChangeText={(text) => this.setState({text})}
+            onChangeText={(username) => this.setState({username})}
           />
+          <TextInput
+            style={{height: 40}}
+            placeholder="password"
+            onChangeText={(password) => this.setState({password})}
+          />
+          <Button
+            onPress={() => navigate('Home', {name: this.state.username})}
+            title="Login"
+            color="#841584"
+            accessibilityLabel="Click this shit to login"
+          />
+          
+        </View>
+        <View style={{flex:1, backgroundColor: '#808080'}}/>
+      </View>
+    );
+  }
+}
+  // setMessage = () => this.setState({message: this.state.username + this.state.password});
+
+export class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {name: ''};
+  }
+  static navigationOptions = ({navigation}) => ({
+    name: navigation.state.params.name,
+  });
+  render () {
+    const {navigate} = this.props.navigation;
+    return (
+      <View style={{flex:1}}>
+        <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
           <Text>
-            {this.state.text}
+            {this.state.name}
           </Text>
+          
         </View>
         <View style={{flex:1, backgroundColor: '#808080'}}/>
       </View>
@@ -63,21 +82,10 @@ export default class Background extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+export const Walker = StackNavigator({
+  Login: {screen: LoginScreen},
+  Home:  {screen: HomeScreen},
 });
+
+
+// AppRegistry.registerComponent('Walker', () => Walker);

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "399202063818",
+    "firebase_url": "https://walker-3cf27.firebaseio.com",
+    "project_id": "walker-3cf27",
+    "storage_bucket": "walker-3cf27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399202063818:android:ddf839bd56fb722e",
+        "android_client_info": {
+          "package_name": "com.walker.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399202063818-ei19ap96e4rll5a90oknnfh4p7skbs0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYskD5dqLkVlICUQ3HYTOQOw5sRQJPZts"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
