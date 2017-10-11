@@ -11,7 +11,7 @@ import {
   Text,
   TextInput,
   View,
-  Button,
+  Button
   // AppRegistry
 } from 'react-native'
 import {
@@ -61,18 +61,17 @@ export class LoginScreen extends React.Component {
 export class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {name: ''};
   }
   static navigationOptions = ({navigation}) => ({
-    name: navigation.state.params.name,
+    title: "Welcome " + navigation.state.params.name
   });
   render () {
-    const {navigate} = this.props.navigation;
+    const {params} = this.props.navigation.state;
     return (
       <View style={{flex:1}}>
         <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
           <Text>
-            {this.state.name}
+            {params.name}
           </Text>
           
         </View>
@@ -82,10 +81,11 @@ export class HomeScreen extends React.Component {
   }
 }
 
-export const Walker = StackNavigator({
+const Walker = StackNavigator({
   Login: {screen: LoginScreen},
   Home:  {screen: HomeScreen},
 });
 
+export default Walker;
 
 // AppRegistry.registerComponent('Walker', () => Walker);
