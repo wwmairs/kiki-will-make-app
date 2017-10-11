@@ -17,6 +17,7 @@ import {
 import {
   StackNavigator,
 } from 'react-navigation'
+import MapView from 'react-native-maps';
 
 export class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -61,10 +62,19 @@ export class LoginScreen extends React.Component {
 export class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
+<<<<<<< HEAD
     this.state = {location: '',
                  };
   };
   
+=======
+    this.state = { region: {
+        latitude:  37.78825,
+        longitude: -122.4324,
+        latitudeDelta:  0.0922,
+        longitudeDelta: 0.0421,
+      }}
+  }
   static navigationOptions = ({navigation}) => ({
     title: "Welcome " + navigation.state.params.name
   });
@@ -83,10 +93,30 @@ export class HomeScreen extends React.Component {
             placeholder="location"
             onChangeText={(password) => this.setState({location})}
           /> </View>
+          <MapView
+            region={this.state.region}
+            onRegionChange={this.onRegionChange}
+          />
+
         </View>
         <View style={{flex:1, backgroundColor: '#808080'}}/>
       </View>
     );
+  }
+  // this is for dealing with the map view
+  getInitialState(){
+    return {
+      region: {
+        latitude:  37.78825,
+        longitude: -122.4324,
+        latitudeDelta:  0.0922,
+        longitudeDelta: 0.0421,
+      },
+    };
+  }
+
+  onRegionChange(region) {
+    this.setState({ region });
   }
 }
 
