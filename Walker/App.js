@@ -11,8 +11,8 @@ import {
   Text,
   TextInput,
   View,
-  Button
-  // AppRegistry
+  Button,
+  AppRegistry
 } from 'react-native'
 import {
   StackNavigator,
@@ -75,15 +75,20 @@ export class HomeScreen extends React.Component {
   render () {
     const {params} = this.props.navigation.state;
     return (
-      <View style={{flex:1}}>
-        <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
-          <MapView
-            region={this.state.region}
-            onRegionChange={this.onRegionChange}
+      // <View style={{flex:1}}>
+        // <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
+        <View style={styles.container}>
+          <MapView style={styles.map}
+            initialRegion={{
+              latitude:  37.78825,
+              longitude: -122.4324,
+              latitudeDelta:  0.0922,
+              longitudeDelta: 0.0421,
+            }}
           />
         </View>
-        <View style={{flex:1, backgroundColor: '#808080'}}/>
-      </View>
+        // <View style={{flex:1, backgroundColor: '#808080'}}/>
+      // </View>
     );
   }
   // this is for dealing with the map view
@@ -110,4 +115,17 @@ const Walker = StackNavigator({
 
 export default Walker;
 
-// AppRegistry.registerComponent('Walker', () => Walker);
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    height: 400,
+    width: 400,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});
+
+AppRegistry.registerComponent('Walker', () => Walker);
