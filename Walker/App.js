@@ -71,20 +71,35 @@ export class HomeScreen extends React.Component {
     super(props);
     this.state = { 
         region: {
-        latitude:  37.78825,
-        longitude: -122.4324,
-        latitudeDelta:  0.0922,
-        longitudeDelta: 0.0421,
-      }
+          latitude:  0,
+          longitude: 0,
+          latitudeDelta:  0.0000,
+          longitudeDelta: 0.0000,
+        },
+        error: null,
     }
   }
-    
   // static navigationOptions = (navigation) => {
   //   title: "Welcome " + navigation.state.params.name
   // };
 
   render () {
     const {params} = this.props.navigation.state;
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({
+          region:  {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: 0,
+            longitudeDelta: 0,
+          },
+          error: null,
+        });
+      },
+      (error) => this.setState({error: error.message}),
+      {}
+    );
     return (
       // <View style={{flex:1}}>
         // <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
@@ -110,7 +125,7 @@ export class HomeScreen extends React.Component {
             region={this.state.region}
             onRegionChange={this.onRegionChange}
           />
-
+          {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
         </View>
       </View>
       </View>
