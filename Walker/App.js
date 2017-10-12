@@ -33,7 +33,14 @@ export class LoginScreen extends React.Component {
     const {navigate} = this.props.navigation;
     return (
       <View style={{flex:1}}>
-        <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
+        <View style={{
+          flex:4, 
+          backgroundColor: '#b0e0e6', 
+          padding: 10,
+          justifyContent: 'center',
+          alignItems: 'center',
+
+        }}>
           <TextInput
             style={{height: 40}}
             placeholder="Username"
@@ -62,17 +69,12 @@ export class LoginScreen extends React.Component {
 export class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
-    this.state = {location: '',
-                 };
-  };
-  
-=======
     this.state = { region: {
         latitude:  37.78825,
         longitude: -122.4324,
         latitudeDelta:  0.0922,
         longitudeDelta: 0.0421,
+        location: '',
       }}
   }
   static navigationOptions = ({navigation}) => ({
@@ -86,13 +88,16 @@ export class HomeScreen extends React.Component {
           <Text>
             {params.name}
           </Text>
-           <View style={[position: 'absolute', bottom: 0, left: 0, right: 0, height: 50]}>
-
+           <View>
+           
            <TextInput
             style={{height: 40}}
             placeholder="location"
             onChangeText={(password) => this.setState({location})}
-          /> </View>
+          /> 
+
+          </View>
+
           <MapView
             region={this.state.region}
             onRegionChange={this.onRegionChange}
