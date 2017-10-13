@@ -1,5 +1,5 @@
 {
-  "name": "Walker",
+  "name": "walker",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "firebase": "^4.5.1",
     "react": "16.0.0-beta.5",
     "react-native": "0.49.3",
     "react-native-maps": "^0.16.4",
@@ -20,5 +21,17 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "description": "A walking app, by Kiki and Will.",
+  "main": "App.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wwmairs/kiki-will-make-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wwmairs/kiki-will-make-app/issues"
+  },
+  "homepage": "https://github.com/wwmairs/kiki-will-make-app#readme"
 }

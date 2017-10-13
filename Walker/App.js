@@ -18,6 +18,16 @@ import {
   StackNavigator,
 } from 'react-navigation'
 import MapView from 'react-native-maps';
+import * as firebase from 'firebase';
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyBYskD5dqLkVlICUQ3HYTOQOw5sRQJPZts",
+  authDomain: "walker-3cf27.firebaseapp.com",
+  databaseURL: "https://walker-1d950.firebaseio.com/",
+  storageBucket: "walker-3cf27.appspot.com",
+};
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 export class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -67,6 +77,9 @@ export class LoginScreen extends React.Component {
   // setMessage = () => this.setState({message: this.state.username + this.state.password});
 
 export class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Map'
+  };
   constructor(props) {
     super(props);
     this.state = { 
@@ -77,29 +90,34 @@ export class HomeScreen extends React.Component {
           longitudeDelta: 0.0000,
         },
         error: null,
+        params: this.props.navigation.state
     }
+    this.itemsRef = firebaseApp.database().ref();
   }
-  // static navigationOptions = (navigation) => {
-  //   title: "Welcome " + navigation.state.params.name
-  // };
+
+  listenForItems(itemsRef) {
+    
+  }
 
   render () {
     const {params} = this.props.navigation.state;
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({
-          region:  {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: 0,
-            longitudeDelta: 0,
-          },
-          error: null,
-        });
-      },
-      (error) => this.setState({error: error.message}),
-      {}
-    );
+    // this part grabs users location and does things with it!
+    // navigator.geolocation.getCurrentPosition(
+    //   (position) => {
+    //     this.setState({
+    //       region:  {
+    //         latitude: position.coords.latitude,
+    //         longitude: position.coords.longitude,
+    //         latitudeDelta: 0,
+    //         longitudeDelta: 0,
+    //       },
+    //       error: null,
+    //     });
+    //   },
+    //   (error) => this.setState({error: error.message}),
+    //   {}
+    // );
+
     return (
       // <View style={{flex:1}}>
         // <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
