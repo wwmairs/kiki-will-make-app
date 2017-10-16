@@ -102,50 +102,39 @@ export class HomeScreen extends React.Component {
   render () {
     const {params} = this.props.navigation.state;
     // this part grabs users location and does things with it!
-    // navigator.geolocation.getCurrentPosition(
-    //   (position) => {
-    //     this.setState({
-    //       region:  {
-    //         latitude: position.coords.latitude,
-    //         longitude: position.coords.longitude,
-    //         latitudeDelta: 0,
-    //         longitudeDelta: 0,
-    //       },
-    //       error: null,
-    //     });
-    //   },
-    //   (error) => this.setState({error: error.message}),
-    //   {}
-    // );
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({
+          region:  {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: 0,
+            longitudeDelta: 0,
+          },
+          error: null,
+        });
+      },
+      (error) => this.setState({error: error.message}),
+      {}
+    );
 
     return (
-      // <View style={{flex:1}}>
-        // <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
-        <View style={styles.container}>
-          <MapView style={styles.map}
-            initialRegion={this.state.region}/>
       <View style={{flex:1}}>
         <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
+          <View style={styles.container}>
+            <MapView style={styles.map}
+                     initialRegion={this.state.region}/>
+          </View>
           <Text>
             {params.name}
           </Text>
-           <View>
            
            <TextInput
             style={{height: 40}}
             placeholder="location"
             onChangeText={(password) => this.setState({location})}
           /> 
-
-          </View>
-
-          <MapView
-            region={this.state.region}
-            onRegionChange={this.onRegionChange}
-          />
-          {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
         </View>
-      </View>
       </View>
     );
   }
