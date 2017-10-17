@@ -19,6 +19,9 @@ import {
 } from 'react-navigation'
 import MapView from 'react-native-maps';
 import * as firebase from 'firebase';
+import Geocoder from 'react-native-geocoding';
+
+Geocoder.setApiKey("AIzaSyBYskD5dqLkVlICUQ3HYTOQOw5sRQJPZts");
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -55,17 +58,17 @@ export class LoginScreen extends React.Component {
 
         }}>
           <TextInput
-            style={{height: 40}}
+            style={styles.input}
             placeholder="Username"
             onChangeText={(username) => this.setState({username})}
           />
           <TextInput
-            style={{height: 40}}
+            style={styles.input}
             placeholder="password"
             onChangeText={(password) => this.setState({password})}
           />
           <Button
-            onPress={() => navigate('Home', {name: this.state.username})}
+            onPress={() => navigate('Directions', {name: this.state.username})}
             title="Login"
             color="#841584"
             accessibilityLabel="Click this shit to login"
@@ -77,9 +80,106 @@ export class LoginScreen extends React.Component {
     );
   }
 }
-  // setMessage = () => this.setState({message: this.state.username + this.state.password});
 
-export class HomeScreen extends React.Component {
+export class DirectionsScreen extends React.Component {
+  static navigationOptions = {
+    // title: this.props.navigation.username,
+  };
+  constructor(props) {
+    super(props);
+    this.state = {origin: '',
+                  destination: '',
+                  message: ''};
+    this.state = { 
+        region: {
+          latitude:  0,
+          longitude: 0,
+          latitudeDelta:  LAT_DELTA,
+          longitudeDelta: LNG_DELTA,
+        },
+        error: null,
+        params: this.props.navigation.state,
+        coords: []
+    }
+    this.itemsRef = firebaseApp.database().ref();
+  };
+
+  componentDidMount() {
+    var positionName;
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        Geocoder.getFromLatLng(position.coords.latitude,
+                               position.coords.longitude).then(
+          json => {
+            var address_component = json.results[0].address_components[0];
+            positionName = address_component.long_name;
+          },
+          error => {
+            alert(error);
+          }
+        );
+
+        this.setState({
+          region:  {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: this.state.region.latitudeDelta,
+            longitudeDelta: this.state.region.longitudeDelta,
+          },
+          error: null,
+        });
+      },
+      (error) => this.setState({error: error.message}),
+      {}
+    );
+  }
+  render () {
+    const {navigate} = this.props.navigation;
+    return (
+      <View style={{flex:1}}>
+        <View style={{
+          flex:4, 
+          backgroundColor: '#b0e0e6', 
+          padding: 10,
+          justifyContent: 'center',
+          alignItems: 'center',
+
+        }}>
+          <View style={styles.container}>
+            <MapView style={styles.map}
+                     region={this.state.region}>
+              <MapView.Polyline
+                coordinates={this.state.coords}
+                strokeWidth={4}
+              />
+            </MapView>
+          </View>
+          <TextInput
+            style={styles.input}
+            placeholder="Start Location"
+            onChangeText={(origin) => this.setState({origin})}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="End Location"
+            onChangeText={(destination) => this.setState({destination})}
+          />
+          <Button
+            onPress={() => navigate('Map', {start: this.state.origin,
+                                            end:   this.state.destination})}
+            title="Start Walking"
+            color="#841584"
+            accessibilityLabel="Click here to start walk"
+          />
+          
+        </View>
+        <View style={{flex:1, backgroundColor: '#808080'}}/>
+      </View>
+    );
+  }
+}
+
+export class MapScreen extends React.Component {
   static navigationOptions = {
     title: 'Map'
   };
@@ -87,12 +187,13 @@ export class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props);
+    const {params} = this.props.navigation.state;
 
     // this maps craziness if from 
     // https://github.com/airbnb/react-native-maps/issues/929
     const mode = 'walking';
-    const origin = '161 College Ave 02155';
-    const destination = '28 Whitman St 02144';
+    const origin = params.start;
+    const destination = params.end;
     const APIKEY = 'AIzaSyAUpGSyNbrvNx5YWkdEcw_r_82nU49Cr3Y';
     const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
 
@@ -103,7 +204,6 @@ export class HomeScreen extends React.Component {
                 this.setState({
                     coords: this.decode(responseJson.routes[0].overview_polyline.points) // definition below
                 });
-                console.warn("coords are " + this.state.coords);
             }
         }).catch(e => {console.warn(e)});
 
@@ -147,7 +247,6 @@ export class HomeScreen extends React.Component {
 
   render () {
     const {params} = this.props.navigation.state;
-    console.warn("coords in render are: " + this.state.coords);
     return (
       <View style={{flex:1}}>
         <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
@@ -178,8 +277,9 @@ export class HomeScreen extends React.Component {
 }
 
 const Walker = StackNavigator({
-  Login: {screen: LoginScreen},
-  Home:  {screen: HomeScreen},
+  Login:      {screen: LoginScreen},
+  Directions: {screen: DirectionsScreen},
+  Map:        {screen: MapScreen},
 
 });
 
@@ -196,6 +296,11 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  input: {
+    height: 40,
+    width: 100,
+
   },
 });
 
