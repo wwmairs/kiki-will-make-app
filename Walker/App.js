@@ -99,9 +99,7 @@ export class HomeScreen extends React.Component {
     
   }
 
-  render () {
-    const {params} = this.props.navigation.state;
-    // this part grabs users location and does things with it!
+  componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({
@@ -117,13 +115,16 @@ export class HomeScreen extends React.Component {
       (error) => this.setState({error: error.message}),
       {}
     );
+  }
 
+  render () {
+    const {params} = this.props.navigation.state;
     return (
       <View style={{flex:1}}>
         <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
           <View style={styles.container}>
             <MapView style={styles.map}
-                     initialRegion={this.state.region}/>
+                     region={this.state.region}/>
           </View>
           <Text>
             {params.name}
@@ -139,9 +140,7 @@ export class HomeScreen extends React.Component {
     );
   }
 
-  // onRegionChange(region) {
-  //   this.setState({ region });
-  // }
+
 }
 
 const Walker = StackNavigator({
