@@ -21,7 +21,7 @@ import MapView from 'react-native-maps';
 import * as firebase from 'firebase';
 import Geocoder from 'react-native-geocoding';
 
-Geocoder.setApiKey("AIzaSyBYskD5dqLkVlICUQ3HYTOQOw5sRQJPZts");
+Geocoder.setApiKey('AIzaSyAUpGSyNbrvNx5YWkdEcw_r_82nU49Cr3Y');
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -127,6 +127,7 @@ export class DirectionsScreen extends React.Component {
             longitudeDelta: this.state.region.longitudeDelta,
           },
           error: null,
+          origin: positionName,
         });
       },
       (error) => this.setState({error: error.message}),
@@ -145,27 +146,30 @@ export class DirectionsScreen extends React.Component {
           alignItems: 'center',
 
         }}>
+          {/* react-native-maps ! ty airbnb */}
           <View style={styles.container}>
             <MapView style={styles.map}
                      region={this.state.region}>
-              <MapView.Polyline
-                coordinates={this.state.coords}
-                strokeWidth={4}
+              <MapView.Marker
+                coordinate={{
+                  latitude: this.state.region.latitude,
+                  longitude: this.state.region.longitude
+                }}
               />
             </MapView>
           </View>
-          <TextInput
+          {/*<TextInput
             style={styles.input}
-            placeholder="Start Location"
+            placeholder={"Start Location"}
             onChangeText={(origin) => this.setState({origin})}
-          />
+          />*/}
           <TextInput
             style={styles.input}
-            placeholder="End Location"
+            placeholder="Where are you headed?"
             onChangeText={(destination) => this.setState({destination})}
           />
           <Button
-            onPress={() => navigate('Map', {start: this.state.origin,
+            onPress={() => navigate('Map', {start: this.state.region,
                                             end:   this.state.destination})}
             title="Start Walking"
             color="#841584"
@@ -189,14 +193,15 @@ export class MapScreen extends React.Component {
     super(props);
     const {params} = this.props.navigation.state;
 
-    // this maps craziness if from 
+    // this maps craziness is inspired by 
     // https://github.com/airbnb/react-native-maps/issues/929
     const mode = 'walking';
     const origin = params.start;
     const destination = params.end;
     const APIKEY = 'AIzaSyAUpGSyNbrvNx5YWkdEcw_r_82nU49Cr3Y';
-    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
+    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude + ',' + origin.longitude}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
 
+    // this shit HATES tufts secure; use tufts guest for demo
     fetch(url)
         .then(response => response.json())
         .then(responseJson => {
@@ -223,9 +228,9 @@ export class MapScreen extends React.Component {
   }
 
 
-  listenForItems(itemsRef) {
+  // listenForItems(itemsRef) {
     
-  }
+  // }
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
@@ -256,18 +261,16 @@ export class MapScreen extends React.Component {
               <MapView.Polyline
                 coordinates={this.state.coords}
                 strokeWidth={4}
+                strokeColor={'#42aaf4'}
+              />
+              <MapView.Marker
+                coordinate={{
+                  latitude: this.state.region.latitude,
+                  longitude: this.state.region.longitude
+                }}
               />
             </MapView>
           </View>
-          <Text>
-            {params.name}
-          </Text>
-           
-           <TextInput
-            style={{height: 40}}
-            placeholder="location"
-            onChangeText={(password) => this.setState({location})}
-          /> 
         </View>
       </View>
     );
@@ -277,7 +280,7 @@ export class MapScreen extends React.Component {
 }
 
 const Walker = StackNavigator({
-  Login:      {screen: LoginScreen},
+  // Login:      {screen: LoginScreen},
   Directions: {screen: DirectionsScreen},
   Map:        {screen: MapScreen},
 
@@ -299,7 +302,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    width: 100,
+    width: 160,
 
   },
 });
