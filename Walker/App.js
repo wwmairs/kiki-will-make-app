@@ -94,7 +94,7 @@ export class DirectionsScreen extends React.Component {
         region: {
           latitude:  0,
           longitude: 0,
-          latitudeDelta:  LAT_DELTA,
+          latitudeDelta:  LAT_DELTA, 
           longitudeDelta: LNG_DELTA,
         },
         error: null,
@@ -275,7 +275,6 @@ export class MapScreen extends React.Component {
       </View>
     );
   }
-
 
 }
 
