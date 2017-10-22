@@ -169,7 +169,7 @@ export class DirectionsScreen extends React.Component {
             onChangeText={(destination) => this.setState({destination})}
           />
           <Button
-            onPress={() => navigate('Map', {start: this.state.region,
+            onPress={() => navigate('Contacts', {start: this.state.region,
                                             end:   this.state.destination})}
             title="Start Walking"
             color="#841584"
@@ -181,6 +181,51 @@ export class DirectionsScreen extends React.Component {
       </View>
     );
   }
+}
+
+export class ContactsScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Contacts'
+  };
+
+  constructor(props) {
+    super(props);
+    const {params} = this.props.navigation.state;
+
+    this.state = { 
+        start: params.start,
+        end: params.end,
+    }
+    this.itemsRef = firebaseApp.database().ref();
+  }
+
+  render () {
+    const {navigate} = this.props.navigation;
+    return (
+      <View style={{flex:1}}>
+        <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
+          <TextInput
+            style={styles.input}
+            placeholder="Search for contacts to notify"
+            onChangeText={(name) => this.updateContacts(name)}
+            />
+          <Button
+            style={styles.startButton}
+            onPress={() => navigate('Map', {start: this.state.start,
+                                            end:   this.state.end})}
+            title="Start Walking"
+            color="#841584"
+            accessibilityLabel="Click here to start walk"
+          />
+        </View>
+      </View>
+    );
+  }
+
+updateContacts(name){
+
+}
+
 }
 
 export class MapScreen extends React.Component {
@@ -226,11 +271,6 @@ export class MapScreen extends React.Component {
     }
     this.itemsRef = firebaseApp.database().ref();
   }
-
-
-  // listenForItems(itemsRef) {
-    
-  // }
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
@@ -282,6 +322,7 @@ export class MapScreen extends React.Component {
 const Walker = StackNavigator({
   // Login:      {screen: LoginScreen},
   Directions: {screen: DirectionsScreen},
+  Contacts:   {screen: ContactsScreen},
   Map:        {screen: MapScreen},
 
 });
@@ -304,6 +345,9 @@ const styles = StyleSheet.create({
     height: 40,
     width: 160,
 
+  },
+  startButton: {
+    bottom: 5
   },
 });
 
