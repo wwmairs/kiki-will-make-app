@@ -66,7 +66,8 @@ export class LoginScreen extends React.Component {
                 //Login was not successful, let's create a new account
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then(() => { this.setState({ error: '', loading: false });
-                                console.log('creating new account la')
+                                console.log('creating new account la');
+                          
 
                      })
                     .catch(() => {
