@@ -1,7 +1,8 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
+ * WILL AND KIKI MAKE AN APP!
+ https://medium.com/dailyjs/react-native-email-authentication-with-firebase-4be20142b0a9
+
+ https://hashnode.com/post/simple-login-system-using-react-native-firebase-and-nativebase-civwpo89u0lwyqe539bm66g0j
  */
 
 import React, { Component } from 'react'
@@ -11,7 +12,9 @@ import {
   Text,
   TextInput,
   View,
+  Image,
   Button,
+  TouchableOpacity,
   AppRegistry
 } from 'react-native'
 import {
@@ -25,12 +28,14 @@ Geocoder.setApiKey('AIzaSyAUpGSyNbrvNx5YWkdEcw_r_82nU49Cr3Y');
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyBYskD5dqLkVlICUQ3HYTOQOw5sRQJPZts",
-  authDomain: "walker-3cf27.firebaseapp.com",
-  databaseURL: "https://walker-1d950.firebaseio.com/",
-  storageBucket: "walker-3cf27.appspot.com",
+  apiKey: "AIzaSyDWaoQS54F6CbLdUx7JIb6YRKBE35GVu5k",
+  authDomain: "walker-1d950.firebaseapp.com",
+  databaseURL: "https://walker-1d950.firebaseio.com",
+  projectId: "walker-1d950",
+  storageBucket: "walker-1d950.appspot.com",
+  messagingSenderId: "584103800641"
 };
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 const LAT_DELTA = .01;
 const LNG_DELTA = .01;
@@ -41,42 +46,168 @@ export class LoginScreen extends React.Component {
   };
   constructor(props) {
     super(props);
-    this.state = {username: '',
+    this.state = {email: '',
                   password: '',
-                  message: ''};
+                  error:'',
+                  loading: false,
+                  message: '',
+                };
+
+//  this.itemsRef = firebaseApp.database().ref();
   };
+
+   onLoginPress() {
+        this.setState({ error: '', loading: true });
+
+        const { email, password } = this.state;
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(() => { this.setState({ error: '', loading: false }); })
+            .catch(() => {
+                //Login was not successful, let's create a new account
+                firebase.auth().createUserWithEmailAndPassword(email, password)
+                    .then(() => { this.setState({ error: '', loading: false });
+                                console.log('creating new account la')
+
+                     })
+                    .catch(() => {
+                        this.setState({ error: 'Authentication failed.', loading: false });
+                    });
+            });
+    }
+
   render () {
     const {navigate} = this.props.navigation;
     return (
       <View style={{flex:1}}>
         <View style={{
-          flex:4, 
-          backgroundColor: '#b0e0e6', 
-          padding: 10,
-          justifyContent: 'center',
+          flex:4,  //#b0e0e6
+          backgroundColor: '#3498db', 
+          padding: 3,
           alignItems: 'center',
-
+          justifyContent: 'center',
         }}>
-          <TextInput
-            style={styles.input}
-            placeholder="Username"
-            onChangeText={(username) => this.setState({username})}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="password"
-            onChangeText={(password) => this.setState({password})}
-          />
-          <Button
-            onPress={() => navigate('Directions', {name: this.state.username})}
-            title="Login"
-            color="#841584"
-            accessibilityLabel="Click this shit to login"
-          />
-          
-        </View>
-        <View style={{flex:1, backgroundColor: '#808080'}}/>
-      </View>
+              <Text style = {styles.title}> Walker App! </Text>
+              <TextInput
+                style={styles.input}
+                placeholder="email"
+                placeholderTextColor = "rgba(255,255,255,0.7)"
+
+                onChangeText={(email) => this.setState({email})}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="password"
+                placeholderTextColor = "rgba(255,255,255,0.7)"
+                secureTextEntry
+                onChangeText={(password) => this.setState({password})}
+              />
+              <TouchableOpacity style={styles.buttonContainer}>
+                  <Button
+                    onPress={() => navigate('Signup', {name: this.state.email})}
+
+                    style = {styles.buttonText}
+                    title="SIGNUP"
+                    accessibilityLabel="Click this shit to login"
+                  />
+
+                  <Button
+                   // onPress={() => navigate('Directions', {name: this.state.email})}
+                   onPress={this.onLoginPress.bind(this)}
+
+                    style = {styles.buttonText}
+                    title="LOGIN"
+                    accessibilityLabel="Click this shit to login"
+                  />
+              </TouchableOpacity>
+
+         </View>
+    </View>
+    );
+  }
+}
+
+export class SignupScreen extends React.Component {
+  static navigationOptions = {
+    title: 'SignUp',
+  };
+  constructor(props) {
+    super(props);
+    this.state = {
+                  email: '',
+                  email: '',
+                  password: '',
+                  error:[],
+                  loaded: true,
+                };
+
+  //  this.itemsRef = firebaseApp.database().ref();
+  }
+  onSignUp() {
+        this.setState({ error: '', loading: true });
+        console.log('im here')
+        const { email, password } = this.state;
+                //Login was not successful, let's create a new account
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+
+                    .then(() => { this.setState({ error: '', loading: false })
+                      console.log('im also here for create')
+                          })
+                    .catch(() => {
+                        this.setState({ error: 'Authentication failed.', loading: false });
+                    });
+           
+    }
+
+
+  render () {
+    const {navigate} = this.props.navigation;
+    return (
+      <View style={{flex:1}}>
+        <View style={{
+          flex:4,  //#b0e0e6
+          backgroundColor: '#3498db', 
+          padding: 3,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+              <Text style = {styles.title}> SignUp! </Text>
+              
+               <TextInput
+                style={styles.input}
+                placeholder="name"
+                placeholderTextColor = "rgba(255,255,255,0.7)"
+
+                onChangeText={(name) => this.setState({name})}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="email" 
+                placeholderTextColor = "rgba(255,255,255,0.7)"
+                onChangeText={(email) => this.setState({email})}
+                value = {this.state.email}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="password"
+                placeholderTextColor = "rgba(255,255,255,0.7)"
+                secureTextEntry
+                onChangeText={(password) => this.setState({password})}
+                value = {this.state.password}
+
+              />
+
+              <TouchableOpacity style={styles.buttonContainer}>
+                  <Button
+                  // onPress={() => navigate('Directions', {name: this.state.username})}
+                    onPress={this.onSignUp.bind(this)} 
+                    style = {styles.buttonText}
+                    title="Sign me up baby!!"
+                    accessibilityLabel="Click this shit to login"
+                  />
+              </TouchableOpacity>
+
+         </View>
+    </View>
     );
   }
 }
@@ -101,7 +232,7 @@ export class DirectionsScreen extends React.Component {
         params: this.props.navigation.state,
         coords: []
     }
-    this.itemsRef = firebaseApp.database().ref();
+   // this.itemsRef = firebaseApp.database().ref();
   };
 
   componentDidMount() {
@@ -175,9 +306,8 @@ export class DirectionsScreen extends React.Component {
             color="#841584"
             accessibilityLabel="Click here to start walk"
           />
-          
         </View>
-        <View style={{flex:1, backgroundColor: '#808080'}}/>
+        <View style={{}}/>
       </View>
     );
   }
@@ -196,7 +326,7 @@ export class ContactsScreen extends React.Component {
         start: params.start,
         end: params.end,
     }
-    this.itemsRef = firebaseApp.database().ref();
+ //   this.itemsRef = firebaseApp.database().ref();
   }
 
   render () {
@@ -269,7 +399,7 @@ export class MapScreen extends React.Component {
         params: this.props.navigation.state,
         coords: []
     }
-    this.itemsRef = firebaseApp.database().ref();
+ //   this.itemsRef = firebaseApp.database().ref();
   }
 
   componentDidMount() {
@@ -319,7 +449,8 @@ export class MapScreen extends React.Component {
 }
 
 const Walker = StackNavigator({
-  // Login:      {screen: LoginScreen},
+  Login:      {screen: LoginScreen},
+  Signup:     {screen: SignupScreen},
   Directions: {screen: DirectionsScreen},
   Contacts:   {screen: ContactsScreen},
   Map:        {screen: MapScreen},
@@ -330,6 +461,15 @@ const Walker = StackNavigator({
 export default Walker;
 
 const styles = StyleSheet.create({
+  title: {
+    color: '#FFF',
+    width: 300,
+    textAlign: 'center',
+    opacity:0.9,
+    fontWeight: 'bold',
+    fontSize: 35,
+    marginBottom:40,
+  },
   container: {
     ...StyleSheet.absoluteFillObject,
     height: 400,
@@ -343,7 +483,21 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     width: 160,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    marginBottom:20,
+    color: '#FFF',
+    paddingHorizontal:10,
+    justifyContent: 'center',
+  },
 
+  buttonContainer: {
+    backgroundColor: '#c9e9ff',
+    justifyContent: 'center',
+  },
+
+  buttonText :{
+    textAlign: 'center',
+    color: '#FFFFFF'
   },
   startButton: {
     bottom: 5
