@@ -342,6 +342,8 @@ export class ContactsScreen extends React.Component {
         start: params.start,
         end: params.end,
         dataSource: ds.cloneWithRows(['row1', 'row2']),
+        selectedContacts: [],
+        selectedDataSource: ds.cloneWithRows([]),
     };    
  //   this.itemsRef = firebaseApp.database().ref();
   }
@@ -357,13 +359,9 @@ export class ContactsScreen extends React.Component {
         // console.warn(err);
       } else {
         this.setState({contacts});
-        console.log("this.state.contacts:");
-        console.log(this.state.contacts);
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         var dataSource = ds.cloneWithRows(this.state.contacts);
         this.setState({dataSource});
-        console.log("this.state.dataSource:");
-        console.log(this.state.dataSource);
       }
       
     });
@@ -379,14 +377,25 @@ export class ContactsScreen extends React.Component {
           <TextInput
             style={styles.input}
             placeholder={"Search for contacts to notify"}
-            onChangeText={(name) => this.updateContacts(name)}
+            onChangeText={(name) => this.updateContactsList(name)}
             />
           <ListView
+            style={styles.contactList}
             dataSource={this.state.dataSource}
-            renderRow={(rowData) => <TouchableHighlight underlayColor = '#008b8b' onPress = {this.onPressRow.bind(this, rowData)}> 
+            renderRow={(rowData) => <TouchableHighlight underlayColor = '#008b8b' onPress = {this.addSelectedContact.bind(this, rowData)}> 
             <Text>{rowData.givenName}</Text>
             </TouchableHighlight>}
             />
+          <View>
+            <Text>Contacts to notify</Text>
+            <ListView
+              style={styles.contactList}
+              dataSource={this.state.selectedDataSource}
+              renderRow={(rowData) => <TouchableHighlight underlayColor = '#008b8b' onPress = {this.removeSelectedContact.bind(this, rowData)}> 
+            <Text>{rowData.givenName}</Text>
+            </TouchableHighlight>}
+            />
+          </View>
           <Button
             style={styles.startButton}
             onPress={() => navigate('Map', {start: this.state.start,
@@ -400,25 +409,35 @@ export class ContactsScreen extends React.Component {
     );
   }
 
-  onPressRow(data) {
-    console.log("clicked this row:");
-    console.log(data);
+  addSelectedContact(newContact) {
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    if (!this.state.selectedContacts.includes(newContact)) {
+      this.setState(prevState => ({
+        selectedContacts: [...prevState.selectedContacts, newContact]
+      }));
+      this.setState(prevState => ({
+        selectedDataSource: ds.cloneWithRows(this.state.selectedContacts)
+      }));
+    }
 
   }
-  updateContacts(name){
+
+  removeSelectedContact(oldContact) {
+    console.log("wanna remove this one:");
+    console.log(oldContact);
+
+  }
+
+  updateContactsList(name){
     Contacts.getContactsMatchingString(name, (err, contacts) => {
         if(err === 'denied') {
           // error
           // console.warn(err);
         } else {
           this.setState({contacts});
-          console.log("this.state.contacts:");
-          console.log(this.state.contacts);
           var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
           var dataSource = ds.cloneWithRows(this.state.contacts);
           this.setState({dataSource});
-          console.log("this.state.dataSource:");
-          console.log(this.state.dataSource);
         }
         
       });
@@ -554,7 +573,7 @@ const styles = StyleSheet.create({
     width: 160,
     backgroundColor: 'rgba(255,255,255,0.2)',
     marginBottom:20,
-    color: '#FFF',
+    color: 255,
     paddingHorizontal:10,
     justifyContent: 'center',
   },
@@ -570,6 +589,10 @@ const styles = StyleSheet.create({
   },
   startButton: {
     bottom: 5
+  },
+  contactList: {
+    height: 50,
+    color:255,
   },
 });
 
