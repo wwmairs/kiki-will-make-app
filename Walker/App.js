@@ -11,6 +11,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ListView,
   View,
   Image,
   Button,
@@ -23,6 +24,8 @@ import {
 import MapView from 'react-native-maps';
 import * as firebase from 'firebase';
 import Geocoder from 'react-native-geocoding';
+
+var Contacts = require('react-native-contacts');
 
 Geocoder.setApiKey('AIzaSyAUpGSyNbrvNx5YWkdEcw_r_82nU49Cr3Y');
 
@@ -319,15 +322,38 @@ export class ContactsScreen extends React.Component {
     title: 'Contacts'
   };
 
+
   constructor(props) {
     super(props);
     const {params} = this.props.navigation.state;
-
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = { 
         start: params.start,
         end: params.end,
-    }
+        dataSource: ds.cloneWithRows(['row1', 'row2']),
+    };    
  //   this.itemsRef = firebaseApp.database().ref();
+  }
+
+  componentWillMount() {
+    this.fetchData();
+  }
+
+  fetchData() {
+    Contacts.getAll((err, contacts) => {
+      if(err === 'denied') {
+        // error
+      } else {
+        this.setState({contacts});
+        console.warn(contacts);
+      }
+      
+    });
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    // var dataSource = ds.cloneWithRows(this.state.contacts);
+    // this line still doesn't work
+    this.setState({dataSource});
+
   }
 
   render () {
@@ -337,8 +363,12 @@ export class ContactsScreen extends React.Component {
         <View style={{flex:4, backgroundColor: '#b0e0e6', padding: 10}}>
           <TextInput
             style={styles.input}
-            placeholder="Search for contacts to notify"
+            placeholder={"Search for contacts to notify"}
             onChangeText={(name) => this.updateContacts(name)}
+            />
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={(rowData) => <Text>{rowData}</Text>}
             />
           <Button
             style={styles.startButton}
@@ -450,8 +480,8 @@ export class MapScreen extends React.Component {
 }
 
 const Walker = StackNavigator({
-  Login:      {screen: LoginScreen},
-  Signup:     {screen: SignupScreen},
+  // Login:      {screen: LoginScreen},
+  // Signup:     {screen: SignupScreen},
   Directions: {screen: DirectionsScreen},
   Contacts:   {screen: ContactsScreen},
   Map:        {screen: MapScreen},
