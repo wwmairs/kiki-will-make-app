@@ -352,7 +352,7 @@ export class ContactsScreen extends React.Component {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     // var dataSource = ds.cloneWithRows(this.state.contacts);
     // this line still doesn't work
-    this.setState({dataSource});
+    // this.setState({dataSource});
 
   }
 
