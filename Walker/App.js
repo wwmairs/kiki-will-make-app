@@ -49,6 +49,7 @@ export class LoginScreen extends React.Component {
   };
   constructor(props) {
     super(props);
+//    this.unsubscribe = null;
     this.state = {email: '',
                   password: '',
                   error:'',
@@ -60,17 +61,18 @@ export class LoginScreen extends React.Component {
   };
 
    onLoginPress() {
+        const {navigate} = this.props.navigation;
         this.setState({ error: '', loading: true });
 
         const { email, password } = this.state;
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(() => { this.setState({ error: '', loading: false }); })
+            .then(() => { this.setState({ error: '', loading: false });
+                          console.log("bitch i'm authenticated");
+              })
             .catch(() => {
                 //Login was not successful, let's create a new account
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then(() => { this.setState({ error: '', loading: false });
-                                console.log('creating new account la');
-                          
 
                      })
                     .catch(() => {
@@ -78,6 +80,17 @@ export class LoginScreen extends React.Component {
                     });
             });
     }
+
+  componentDidMount() {
+  const {navigate} = this.props.navigation;
+    this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log("HI IM HERE TOOO BITCH IN COMPONENTDIDMOUNT")
+        console.log("what the fuck is user", user)
+        navigate('Directions')
+      }
+    })
+  }
 
   render () {
     const {navigate} = this.props.navigation;
@@ -159,9 +172,7 @@ export class SignupScreen extends React.Component {
                     .catch(() => {
                         this.setState({ error: 'Authentication failed.', loading: false });
                     });
-           
     }
-
 
   render () {
     const {navigate} = this.props.navigation;
@@ -197,9 +208,8 @@ export class SignupScreen extends React.Component {
                 secureTextEntry
                 onChangeText={(password) => this.setState({password})}
                 value = {this.state.password}
-
               />
-
+              
               <TouchableOpacity style={styles.buttonContainer}>
                   <Button
                   // onPress={() => navigate('Directions', {name: this.state.username})}
