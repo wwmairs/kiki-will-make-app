@@ -353,16 +353,20 @@ export class ContactsScreen extends React.Component {
     Contacts.getAll((err, contacts) => {
       if(err === 'denied') {
         // error
+        // console.warn(err);
       } else {
         this.setState({contacts});
-        console.warn(contacts);
+        console.log("this.state.contacts:");
+        console.log(this.state.contacts);
+        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        var dataSource = ds.cloneWithRows(this.state.contacts);
+        this.setState({dataSource});
+        console.log("this.state.dataSource:");
+        console.log(this.state.dataSource);
       }
       
     });
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    // var dataSource = ds.cloneWithRows(this.state.contacts);
-    // this line still doesn't work
-    // this.setState({dataSource});
+
 
   }
 
@@ -378,7 +382,7 @@ export class ContactsScreen extends React.Component {
             />
           <ListView
             dataSource={this.state.dataSource}
-            renderRow={(rowData) => <Text>{rowData}</Text>}
+            renderRow={(rowData) => <Text>{rowData.givenName }</Text>}
             />
           <Button
             style={styles.startButton}
