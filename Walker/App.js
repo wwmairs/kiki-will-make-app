@@ -16,6 +16,7 @@ import {
   Image,
   Button,
   TouchableOpacity,
+  TouchableHighlight,
   AppRegistry
 } from 'react-native'
 import {
@@ -346,7 +347,7 @@ export class ContactsScreen extends React.Component {
   }
 
   componentWillMount() {
-    // this.fetchData();
+    this.fetchData();
   }
 
   fetchData() {
@@ -382,7 +383,9 @@ export class ContactsScreen extends React.Component {
             />
           <ListView
             dataSource={this.state.dataSource}
-            renderRow={(rowData) => <Text>{rowData.givenName }</Text>}
+            renderRow={(rowData) => <TouchableHighlight underlayColor = '#008b8b' onPress = {this.onPressRow.bind(this, rowData)}> 
+            <Text>{rowData.givenName}</Text>
+            </TouchableHighlight>}
             />
           <Button
             style={styles.startButton}
@@ -397,6 +400,11 @@ export class ContactsScreen extends React.Component {
     );
   }
 
+  onPressRow(data) {
+    console.log("clicked this row:");
+    console.log(data);
+
+  }
   updateContacts(name){
     Contacts.getContactsMatchingString(name, (err, contacts) => {
         if(err === 'denied') {
