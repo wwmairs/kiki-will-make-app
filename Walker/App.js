@@ -346,7 +346,7 @@ export class ContactsScreen extends React.Component {
   }
 
   componentWillMount() {
-    this.fetchData();
+    // this.fetchData();
   }
 
   fetchData() {
@@ -397,9 +397,25 @@ export class ContactsScreen extends React.Component {
     );
   }
 
-updateContacts(name){
+  updateContacts(name){
+    Contacts.getContactsMatchingString(name, (err, contacts) => {
+        if(err === 'denied') {
+          // error
+          // console.warn(err);
+        } else {
+          this.setState({contacts});
+          console.log("this.state.contacts:");
+          console.log(this.state.contacts);
+          var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+          var dataSource = ds.cloneWithRows(this.state.contacts);
+          this.setState({dataSource});
+          console.log("this.state.dataSource:");
+          console.log(this.state.dataSource);
+        }
+        
+      });
 
-}
+  }
 
 }
 
