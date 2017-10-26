@@ -39,7 +39,7 @@ const firebaseConfig = {
   storageBucket: "walker-1d950.appspot.com",
   messagingSenderId: "584103800641"
 };
-firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const LAT_DELTA = .01;
 const LNG_DELTA = .01;
@@ -64,21 +64,20 @@ export class LoginScreen extends React.Component {
    onLoginPress() {
         const {navigate} = this.props.navigation;
         this.setState({ error: '', loading: true });
+        console.log('login pressed');
 
         const { email, password } = this.state;
+        console.log(email);
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => { this.setState({ error: '', loading: false });
                           console.log("bitch i'm authenticated");
+                          navigate('Directions');
               })
             .catch(() => {
+              console.log('login didnt work');
                 //Login was not successful, let's create a new account
-                firebase.auth().createUserWithEmailAndPassword(email, password)
-                    .then(() => { this.setState({ error: '', loading: false });
-
-                     })
-                    .catch(() => {
-                        this.setState({ error: 'Authentication failed.', loading: false });
-                    });
+              navigate('Signup', {email: this.state.email});
+                
             });
     }
 
@@ -151,8 +150,7 @@ export class SignupScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-                  email: '',
-                  email: '',
+                  email: this.props.navigation.state.email,
                   password: '',
                   error:[],
                   loaded: true,
@@ -162,8 +160,9 @@ export class SignupScreen extends React.Component {
   }
   onSignUp() {
         this.setState({ error: '', loading: true });
-        console.log('im here')
+        console.log('im here in onSignUp, email is:');
         const { email, password } = this.state;
+        console.log(email);
                 //Login was not successful, let's create a new account
         firebase.auth().createUserWithEmailAndPassword(email, password)
 
@@ -197,7 +196,7 @@ export class SignupScreen extends React.Component {
               />
               <TextInput
                 style={styles.input}
-                placeholder="email" 
+                placeholder={this.state.email}
                 placeholderTextColor = "rgba(255,255,255,0.7)"
                 onChangeText={(email) => this.setState({email})}
                 value = {this.state.email}
@@ -341,11 +340,11 @@ export class ContactsScreen extends React.Component {
     this.state = { 
         start: params.start,
         end: params.end,
-        dataSource: ds.cloneWithRows(['row1', 'row2']),
+        dataSource: ds.cloneWithRows([]),
         selectedContacts: [],
         selectedDataSource: ds.cloneWithRows([]),
     };    
- //   this.itemsRef = firebaseApp.database().ref();
+    this.itemsRef = firebaseApp.database().ref();
   }
 
   componentWillMount() {
@@ -398,8 +397,10 @@ export class ContactsScreen extends React.Component {
           </View>
           <Button
             style={styles.startButton}
-            onPress={() => navigate('Map', {start: this.state.start,
-                                            end:   this.state.end})}
+            onPress={() => {this.itemsRef.push({dest: this.state.end})
+              navigate('Map', {start: this.state.start,
+                               end:   this.state.end,
+                               contacts: this.state.selectedContacts})}}
             title="Start Walking"
             color="#841584"
             accessibilityLabel="Click here to start walk"
@@ -416,18 +417,20 @@ export class ContactsScreen extends React.Component {
         selectedContacts: [...prevState.selectedContacts, newContact],
         selectedDataSource: ds.cloneWithRows([...prevState.selectedContacts, newContact]),
       }));
-      {/*
-      this.setState(prevState => ({
-        selectedDataSource: ds.cloneWithRows(this.state.selectedContacts)
-      }));
-    */}
     }
 
   }
 
+  // this doesn't work
   removeSelectedContact(oldContact) {
     console.log("wanna remove this one:");
     console.log(oldContact);
+    // const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    // var index = this.state.selectedContacts.indexOf(oldContact);
+    // this.setState(prevState => ({
+    //   selectedContacts: prevState.selectedContacts.splice(index, 1),
+    //   selectedDataSource: ds.cloneWithRows(prevState.selectedContacts.splice(index, 1))
+    // }))
 
   }
 
@@ -540,8 +543,8 @@ export class MapScreen extends React.Component {
 }
 
 const Walker = StackNavigator({
-  // Login:      {screen: LoginScreen},
-  // Signup:     {screen: SignupScreen},
+  Login:      {screen: LoginScreen},
+  Signup:     {screen: SignupScreen},
   Directions: {screen: DirectionsScreen},
   Contacts:   {screen: ContactsScreen},
   Map:        {screen: MapScreen},
