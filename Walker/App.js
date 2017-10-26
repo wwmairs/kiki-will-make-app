@@ -413,11 +413,14 @@ export class ContactsScreen extends React.Component {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     if (!this.state.selectedContacts.includes(newContact)) {
       this.setState(prevState => ({
-        selectedContacts: [...prevState.selectedContacts, newContact]
+        selectedContacts: [...prevState.selectedContacts, newContact],
+        selectedDataSource: ds.cloneWithRows([...prevState.selectedContacts, newContact]),
       }));
+      {/*
       this.setState(prevState => ({
         selectedDataSource: ds.cloneWithRows(this.state.selectedContacts)
       }));
+    */}
     }
 
   }
@@ -592,7 +595,6 @@ const styles = StyleSheet.create({
   },
   contactList: {
     height: 50,
-    color:255,
   },
 });
 
