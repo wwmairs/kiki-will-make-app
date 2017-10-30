@@ -402,7 +402,8 @@ export class ContactsScreen extends React.Component {
           </View>
           <Button
             style={styles.startButton}
-            onPress={() => {this.itemsRef.push({dest: this.state.end})
+            onPress={() => {this.itemsRef.push({dest: this.state.end, 
+                                                location: this.state.start})
               navigate('Map', {start: this.state.start,
                                end:   this.state.end,
                                contacts: this.state.selectedContacts})}}
