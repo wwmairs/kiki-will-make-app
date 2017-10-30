@@ -25,6 +25,7 @@ import {
 import MapView from 'react-native-maps';
 import * as firebase from 'firebase';
 import Geocoder from 'react-native-geocoding';
+import Communications from 'react-native-communications';
 
 var Contacts = require('react-native-contacts');
 
@@ -404,6 +405,7 @@ export class ContactsScreen extends React.Component {
             style={styles.startButton}
             onPress={() => {this.itemsRef.push({dest: this.state.end, 
                                                 location: this.state.start})
+              this.sendMessages()
               navigate('Map', {start: this.state.start,
                                end:   this.state.end,
                                contacts: this.state.selectedContacts})}}
@@ -414,6 +416,10 @@ export class ContactsScreen extends React.Component {
         </View>
       </View>
     );
+  }
+
+  sendMessages() {
+    console.log("trying to send messages");
   }
 
   addSelectedContact(newContact) {
