@@ -160,17 +160,22 @@ export class SignupScreen extends React.Component {
   }
   onSignUp() {
         this.setState({ error: '', loading: true });
-        console.log('im here in onSignUp, email is:');
+        
         const { email, password } = this.state;
-        console.log(email);
+        console.log('im here in onSignUp, email is:' + email + 'and password is: ' + password);
                 //Login was not successful, let's create a new account
         firebase.auth().createUserWithEmailAndPassword(email, password)
 
                     .then(() => { this.setState({ error: '', loading: false })
                       console.log('im also here for create')
                           })
-                    .catch(() => {
+                    .catch((e) => {
+                        if (e.code == "auth/weak-password") {
+                          alert(e.message);
+                        }
                         this.setState({ error: 'Authentication failed.', loading: false });
+                        console.log(e);
+                        console.log(this.state.error)
                     });
     }
 
