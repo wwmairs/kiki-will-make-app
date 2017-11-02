@@ -419,7 +419,14 @@ export class ContactsScreen extends React.Component {
   }
 
   sendMessages() {
-    console.log("trying to send messages");
+    var numbers = [];
+    for (i = 0; i < this.state.selectedContacts.length; i++) {
+      numbers.push(this.state.selectedContacts[i].phoneNumbers[0].number)
+    }
+    for (i = 0; i < numbers.length; i++) {
+      console.log("about to send text to: ", numbers[i]);
+      Communications.text(numbers[i]);
+    }
   }
 
   addSelectedContact(newContact) {
