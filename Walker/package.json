@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "eslint-plugin-react-native": "^3.1.0",
     "firebase": "^4.6.0",
     "react": "16.0.0-beta.5",
     "react-mixin": "^2.0.2",
@@ -19,8 +20,14 @@
     "react-timer-mixin": "^0.13.3"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "babel-jest": "21.2.0",
     "babel-preset-react-native": "4.0.0",
+    "eslint": "3.x",
+    "eslint-config-google": "^0.9.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
     "jest": "21.2.1",
     "react-test-renderer": "16.0.0-beta.5"
   },
