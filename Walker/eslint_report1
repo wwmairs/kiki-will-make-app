@@ -1,0 +1,313 @@
+
+/Users/William/Desktop/150/kiki_walks/kiki-will-make-app/Walker/App.js
+    8:17   error  'Component' is defined but never used           no-unused-vars
+    8:41   error  Missing semicolon                               semi
+   10:3    error  'Platform' is defined but never used            no-unused-vars
+   12:3    error  'Text' is defined but never used                no-unused-vars
+   13:3    error  'TextInput' is defined but never used           no-unused-vars
+   15:3    error  'View' is defined but never used                no-unused-vars
+   16:3    error  'Image' is defined but never used               no-unused-vars
+   17:3    error  'Button' is defined but never used              no-unused-vars
+   18:3    error  'TouchableOpacity' is defined but never used    no-unused-vars
+   19:3    error  'TouchableHighlight' is defined but never used  no-unused-vars
+   21:22   error  Missing semicolon                               semi
+   24:26   error  Missing semicolon                               semi
+   25:8    error  'MapView' is defined but never used             no-unused-vars
+   28:8    error  'Communications' is defined but never used      no-unused-vars
+   38:3    error  Expected indentation of 4 spaces but found 2    indent
+   39:3    error  Expected indentation of 4 spaces but found 2    indent
+   40:3    error  Expected indentation of 4 spaces but found 2    indent
+   41:3    error  Expected indentation of 4 spaces but found 2    indent
+   42:3    error  Expected indentation of 4 spaces but found 2    indent
+   43:3    error  Expected indentation of 4 spaces but found 2    indent
+   51:3    error  Expected indentation of 4 spaces but found 2    indent
+   52:5    error  Expected indentation of 6 spaces but found 4    indent
+   54:3    error  Expected indentation of 4 spaces but found 2    indent
+   55:5    error  Expected indentation of 6 spaces but found 4    indent
+   57:5    error  Expected indentation of 6 spaces but found 4    indent
+   58:19   error  Expected indentation of 8 spaces but found 18   indent
+   59:19   error  Expected indentation of 8 spaces but found 18   indent
+   60:19   error  Expected indentation of 8 spaces but found 18   indent
+   61:19   error  Expected indentation of 8 spaces but found 18   indent
+   62:17   error  Expected indentation of 4 spaces but found 16   indent
+   65:4    error  Unnecessary semicolon                           no-extra-semi
+   67:4    error  Expected indentation of 4 spaces but found 3    indent
+   68:9    error  Expected indentation of 7 spaces but found 8    indent
+   69:9    error  Expected indentation of 7 spaces but found 8    indent
+   70:9    error  Expected indentation of 7 spaces but found 8    indent
+   70:9    error  Unexpected console statement                    no-console
+   72:9    error  Expected indentation of 7 spaces but found 8    indent
+   73:9    error  Expected indentation of 7 spaces but found 8    indent
+   73:9    error  Unexpected console statement                    no-console
+   74:9    error  Expected indentation of 7 spaces but found 8    indent
+   76:27   error  Expected indentation of 16 spaces but found 26  indent
+   76:27   error  Unexpected console statement                    no-console
+   77:27   error  Expected indentation of 16 spaces but found 26  indent
+   78:15   error  Expected indentation of 12 spaces but found 14  indent
+   80:15   error  Unexpected console statement                    no-console
+   80:15   error  Expected indentation of 16 spaces but found 14  indent
+   82:15   error  Expected indentation of 16 spaces but found 14  indent
+   85:5    error  Expected indentation of 3 spaces but found 4    indent
+   87:3    error  Expected indentation of 4 spaces but found 2    indent
+   88:3    error  Expected indentation of 6 spaces but found 2    indent
+   89:5    error  Expected indentation of 6 spaces but found 4    indent
+   90:7    error  Expected indentation of 8 spaces but found 6    indent
+   91:9    error  Unexpected console statement                    no-console
+   91:9    error  Expected indentation of 10 spaces but found 8   indent
+   91:66   error  Missing semicolon                               semi
+   92:9    error  Expected indentation of 10 spaces but found 8   indent
+   92:9    error  Unexpected console statement                    no-console
+   92:51   error  Missing semicolon                               semi
+   93:9    error  Expected indentation of 10 spaces but found 8   indent
+   93:31   error  Missing semicolon                               semi
+   95:7    error  Missing semicolon                               semi
+   98:3    error  Expected indentation of 4 spaces but found 2    indent
+   99:5    error  Expected indentation of 6 spaces but found 4    indent
+  100:5    error  Expected indentation of 6 spaces but found 4    indent
+  103:11   error  Expected indentation of 12 spaces but found 10  indent
+  104:11   error  Expected indentation of 12 spaces but found 10  indent
+  105:11   error  Expected indentation of 12 spaces but found 10  indent
+  106:11   error  Expected indentation of 12 spaces but found 10  indent
+  107:11   error  Expected indentation of 12 spaces but found 10  indent
+  150:3    error  Expected indentation of 4 spaces but found 2    indent
+  151:5    error  Expected indentation of 6 spaces but found 4    indent
+  153:3    error  Expected indentation of 4 spaces but found 2    indent
+  154:5    error  Expected indentation of 6 spaces but found 4    indent
+  155:5    error  Expected indentation of 6 spaces but found 4    indent
+  156:19   error  Expected indentation of 8 spaces but found 18   indent
+  157:19   error  Expected indentation of 8 spaces but found 18   indent
+  158:19   error  Expected indentation of 8 spaces but found 18   indent
+  159:19   error  Expected indentation of 8 spaces but found 18   indent
+  160:17   error  Expected indentation of 4 spaces but found 16   indent
+  164:3    error  Expected indentation of 4 spaces but found 2    indent
+  165:9    error  Expected indentation of 6 spaces but found 8    indent
+  167:9    error  Expected indentation of 6 spaces but found 8    indent
+  168:9    error  Unexpected console statement                    no-console
+  168:9    error  Expected indentation of 6 spaces but found 8    indent
+  170:9    error  Expected indentation of 6 spaces but found 8    indent
+  172:79   error  Missing semicolon                               semi
+  173:23   error  Expected indentation of 24 spaces but found 22  indent
+  173:23   error  Unexpected console statement                    no-console
+  173:61   error  Missing semicolon                               semi
+  174:27   error  Expected indentation of 20 spaces but found 26  indent
+  177:27   error  Expected indentation of 28 spaces but found 26  indent
+  180:25   error  Unexpected console statement                    no-console
+  181:25   error  Unexpected console statement                    no-console
+  181:54   error  Missing semicolon                               semi
+  183:5    error  Expected indentation of 2 spaces but found 4    indent
+  185:3    error  Expected indentation of 4 spaces but found 2    indent
+  186:5    error  Expected indentation of 6 spaces but found 4    indent
+  186:12   error  'navigate' is assigned a value but never used   no-unused-vars
+  187:5    error  Expected indentation of 6 spaces but found 4    indent
+  190:11   error  Expected indentation of 12 spaces but found 10  indent
+  191:11   error  Expected indentation of 12 spaces but found 10  indent
+  192:11   error  Expected indentation of 12 spaces but found 10  indent
+  193:11   error  Expected indentation of 12 spaces but found 10  indent
+  194:11   error  Expected indentation of 12 spaces but found 10  indent
+  238:3    error  Expected indentation of 4 spaces but found 2    indent
+  241:3    error  Expected indentation of 4 spaces but found 2    indent
+  242:5    error  Expected indentation of 6 spaces but found 4    indent
+  243:5    error  Expected indentation of 6 spaces but found 4    indent
+  244:19   error  Expected indentation of 8 spaces but found 18   indent
+  245:19   error  Expected indentation of 8 spaces but found 18   indent
+  246:5    error  Expected indentation of 6 spaces but found 4    indent
+  248:11   error  Expected indentation of 12 spaces but found 10  indent
+  249:11   error  Expected indentation of 12 spaces but found 10  indent
+  250:11   error  Expected indentation of 12 spaces but found 10  indent
+  251:11   error  Expected indentation of 12 spaces but found 10  indent
+  256:6    error  Missing semicolon                               semi
+  258:4    error  Unnecessary semicolon                           no-extra-semi
+  260:3    error  Expected indentation of 4 spaces but found 2    indent
+  261:5    error  Expected indentation of 6 spaces but found 4    indent
+  262:5    error  Expected indentation of 6 spaces but found 4    indent
+  264:9    error  Expected indentation of 10 spaces but found 8   indent
+  267:13   error  Expected indentation of 14 spaces but found 12  indent
+  268:13   error  Expected indentation of 14 spaces but found 12  indent
+  271:13   error  Expected indentation of 14 spaces but found 12  indent
+  275:9    error  Expected indentation of 10 spaces but found 8   indent
+  276:11   error  Expected indentation of 12 spaces but found 10  indent
+  277:13   error  Expected indentation of 14 spaces but found 12  indent
+  278:13   error  Expected indentation of 14 spaces but found 12  indent
+  279:13   error  Expected indentation of 14 spaces but found 12  indent
+  280:13   error  Expected indentation of 14 spaces but found 12  indent
+  282:11   error  Expected indentation of 12 spaces but found 10  indent
+  283:11   error  Expected indentation of 12 spaces but found 10  indent
+  290:3    error  Expected indentation of 4 spaces but found 2    indent
+  291:5    error  Expected indentation of 6 spaces but found 4    indent
+  292:5    error  Expected indentation of 6 spaces but found 4    indent
+  295:11   error  Expected indentation of 12 spaces but found 10  indent
+  296:11   error  Expected indentation of 12 spaces but found 10  indent
+  297:11   error  Expected indentation of 12 spaces but found 10  indent
+  298:11   error  Expected indentation of 12 spaces but found 10  indent
+  299:11   error  Expected indentation of 12 spaces but found 10  indent
+  308:19   error  Expected indentation of 20 spaces but found 18  indent
+  309:19   error  Expected indentation of 20 spaces but found 18  indent
+  326:45   error  Expected indentation of 16 spaces but found 44  indent
+  339:3    error  Expected indentation of 4 spaces but found 2    indent
+  340:5    error  Expected indentation of 6 spaces but found 4    indent
+  344:3    error  Expected indentation of 4 spaces but found 2    indent
+  345:5    error  Expected indentation of 6 spaces but found 4    indent
+  346:5    error  Expected indentation of 6 spaces but found 4    indent
+  347:5    error  Expected indentation of 6 spaces but found 4    indent
+  348:5    error  Expected indentation of 6 spaces but found 4    indent
+  355:5    error  Expected indentation of 6 spaces but found 4    indent
+  358:3    error  Expected indentation of 4 spaces but found 2    indent
+  359:5    error  Expected indentation of 6 spaces but found 4    indent
+  362:3    error  Expected indentation of 4 spaces but found 2    indent
+  363:5    error  Expected indentation of 6 spaces but found 4    indent
+  364:7    error  Expected indentation of 8 spaces but found 6    indent
+  368:9    error  Expected indentation of 10 spaces but found 8   indent
+  369:9    error  Expected indentation of 10 spaces but found 8   indent
+  370:9    error  Expected indentation of 10 spaces but found 8   indent
+  371:9    error  Expected indentation of 10 spaces but found 8   indent
+  379:3    error  Expected indentation of 4 spaces but found 2    indent
+  380:5    error  Expected indentation of 6 spaces but found 4    indent
+  381:5    error  Expected indentation of 6 spaces but found 4    indent
+  409:49   error  Expected indentation of 16 spaces but found 48  indent
+  409:77   error  Missing semicolon                               semi
+  410:15   error  Expected indentation of 16 spaces but found 14  indent
+  410:34   error  Missing semicolon                               semi
+  411:15   error  Expected indentation of 16 spaces but found 14  indent
+  412:32   error  Expected indentation of 18 spaces but found 31  indent
+  413:32   error  Expected indentation of 18 spaces but found 31  indent
+  413:71   error  Missing semicolon                               semi
+  423:3    error  Expected indentation of 4 spaces but found 2    indent
+  424:5    error  Expected indentation of 6 spaces but found 4    indent
+  425:5    error  Expected indentation of 6 spaces but found 4    indent
+  425:10   error  'i' is not defined                              no-undef
+  425:17   error  'i' is not defined                              no-undef
+  425:57   error  'i' is not defined                              no-undef
+  426:7    error  Expected indentation of 8 spaces but found 6    indent
+  426:48   error  'i' is not defined                              no-undef
+  426:74   error  Missing semicolon                               semi
+  428:5    error  Expected indentation of 6 spaces but found 4    indent
+  428:10   error  'i' is not defined                              no-undef
+  428:17   error  'i' is not defined                              no-undef
+  428:37   error  'i' is not defined                              no-undef
+  429:7    error  Expected indentation of 8 spaces but found 6    indent
+  429:7    error  Unexpected console statement                    no-console
+  429:53   error  'i' is not defined                              no-undef
+  434:3    error  Expected indentation of 4 spaces but found 2    indent
+  435:5    error  Expected indentation of 6 spaces but found 4    indent
+  436:5    error  Expected indentation of 6 spaces but found 4    indent
+  437:7    error  Expected indentation of 8 spaces but found 6    indent
+  438:9    error  Expected indentation of 10 spaces but found 8   indent
+  439:9    error  Expected indentation of 10 spaces but found 8   indent
+  446:3    error  Expected indentation of 4 spaces but found 2    indent
+  447:5    error  Expected indentation of 6 spaces but found 4    indent
+  447:5    error  Unexpected console statement                    no-console
+  448:5    error  Expected indentation of 6 spaces but found 4    indent
+  448:5    error  Unexpected console statement                    no-console
+  458:3    error  Expected indentation of 4 spaces but found 2    indent
+  459:5    error  Expected indentation of 6 spaces but found 4    indent
+  464:11   error  Expected indentation of 12 spaces but found 10  indent
+  465:11   error  Expected indentation of 12 spaces but found 10  indent
+  466:11   error  Expected indentation of 12 spaces but found 10  indent
+  467:11   error  Expected indentation of 12 spaces but found 10  indent
+  470:7    error  Expected indentation of 4 spaces but found 6    indent
+  477:3    error  Expected indentation of 4 spaces but found 2    indent
+  478:5    error  Expected indentation of 6 spaces but found 4    indent
+  480:3    error  Expected indentation of 4 spaces but found 2    indent
+  480:293  error  Missing semicolon                               semi
+  480:357  error  Missing semicolon                               semi
+  480:359  error  Missing semicolon                               semi
+  482:3    error  Expected indentation of 4 spaces but found 2    indent
+  483:5    error  Expected indentation of 6 spaces but found 4    indent
+  484:5    error  Expected indentation of 6 spaces but found 4    indent
+  485:5    error  Expected indentation of 6 spaces but found 4    indent
+  489:5    error  Expected indentation of 6 spaces but found 4    indent
+  490:5    error  Expected indentation of 6 spaces but found 4    indent
+  491:5    error  Expected indentation of 6 spaces but found 4    indent
+  492:5    error  Expected indentation of 6 spaces but found 4    indent
+  493:5    error  Expected indentation of 6 spaces but found 4    indent
+  496:5    error  Expected indentation of 6 spaces but found 4    indent
+  504:24   error  Unexpected console statement                    no-console
+  504:39   error  Missing semicolon                               semi
+  507:5    error  Expected indentation of 6 spaces but found 4    indent
+  509:11   error  Expected indentation of 12 spaces but found 10  indent
+  510:11   error  Expected indentation of 12 spaces but found 10  indent
+  511:11   error  Expected indentation of 12 spaces but found 10  indent
+  512:11   error  Expected indentation of 12 spaces but found 10  indent
+  518:6    error  Missing semicolon                               semi
+  522:3    error  Expected indentation of 4 spaces but found 2    indent
+  523:5    error  Expected indentation of 6 spaces but found 4    indent
+  525:9    error  Expected indentation of 10 spaces but found 8   indent
+  526:11   error  Expected indentation of 12 spaces but found 10  indent
+  527:13   error  Expected indentation of 14 spaces but found 12  indent
+  528:13   error  Expected indentation of 14 spaces but found 12  indent
+  529:13   error  Expected indentation of 14 spaces but found 12  indent
+  530:13   error  Expected indentation of 14 spaces but found 12  indent
+  532:11   error  Expected indentation of 12 spaces but found 10  indent
+  538:5    error  Expected indentation of 6 spaces but found 4    indent
+  538:66   error  Missing semicolon                               semi
+  541:3    error  Expected indentation of 4 spaces but found 2    indent
+  542:5    error  Unexpected console statement                    no-console
+  542:5    error  Expected indentation of 6 spaces but found 4    indent
+  543:5    error  Expected indentation of 6 spaces but found 4    indent
+  545:9    error  Expected indentation of 10 spaces but found 8   indent
+  546:11   error  Expected indentation of 12 spaces but found 10  indent
+  547:13   error  Expected indentation of 14 spaces but found 12  indent
+  548:13   error  Expected indentation of 14 spaces but found 12  indent
+  549:13   error  Expected indentation of 14 spaces but found 12  indent
+  550:13   error  Expected indentation of 14 spaces but found 12  indent
+  552:11   error  Expected indentation of 12 spaces but found 10  indent
+  554:9    error  Expected indentation of 10 spaces but found 8   indent
+  555:29   error  Expected indentation of 12 spaces but found 28  indent
+  556:9    error  Expected indentation of 10 spaces but found 8   indent
+  557:9    error  Expected indentation of 10 spaces but found 8   indent
+  558:9    error  Expected indentation of 10 spaces but found 8   indent
+  559:9    error  Expected indentation of 10 spaces but found 8   indent
+  560:9    error  Expected indentation of 10 spaces but found 8   indent
+  561:9    error  Expected indentation of 10 spaces but found 8   indent
+  572:18   error  'responeJson' is not defined                    no-undef
+  577:13   error  Unexpected console statement                    no-console
+  578:24   error  Unexpected console statement                    no-console
+  578:39   error  Missing semicolon                               semi
+  585:3    error  Expected indentation of 4 spaces but found 2    indent
+  586:5    error  Expected indentation of 6 spaces but found 4    indent
+  586:12   error  'params' is assigned a value but never used     no-unused-vars
+  587:5    error  Expected indentation of 6 spaces but found 4    indent
+  600:19   error  Expected indentation of 20 spaces but found 18  indent
+  601:19   error  Expected indentation of 20 spaces but found 18  indent
+  616:3    error  Expected indentation of 4 spaces but found 2    indent
+  617:3    error  Expected indentation of 4 spaces but found 2    indent
+  618:3    error  Expected indentation of 4 spaces but found 2    indent
+  619:3    error  Expected indentation of 4 spaces but found 2    indent
+  620:3    error  Expected indentation of 4 spaces but found 2    indent
+  628:3    error  Expected indentation of 4 spaces but found 2    indent
+  629:5    error  Expected indentation of 6 spaces but found 4    indent
+  630:5    error  Expected indentation of 6 spaces but found 4    indent
+  631:5    error  Expected indentation of 6 spaces but found 4    indent
+  632:5    error  Expected indentation of 6 spaces but found 4    indent
+  633:5    error  Expected indentation of 6 spaces but found 4    indent
+  634:5    error  Expected indentation of 6 spaces but found 4    indent
+  635:5    error  Expected indentation of 6 spaces but found 4    indent
+  637:3    error  Expected indentation of 4 spaces but found 2    indent
+  638:5    error  Expected indentation of 6 spaces but found 4    indent
+  639:5    error  Expected indentation of 6 spaces but found 4    indent
+  640:5    error  Expected indentation of 6 spaces but found 4    indent
+  641:5    error  Expected indentation of 6 spaces but found 4    indent
+  642:5    error  Expected indentation of 6 spaces but found 4    indent
+  644:3    error  Expected indentation of 4 spaces but found 2    indent
+  645:5    error  Expected indentation of 6 spaces but found 4    indent
+  647:3    error  Expected indentation of 4 spaces but found 2    indent
+  648:5    error  Expected indentation of 6 spaces but found 4    indent
+  649:5    error  Expected indentation of 6 spaces but found 4    indent
+  650:5    error  Expected indentation of 6 spaces but found 4    indent
+  651:5    error  Expected indentation of 6 spaces but found 4    indent
+  652:5    error  Expected indentation of 6 spaces but found 4    indent
+  653:5    error  Expected indentation of 6 spaces but found 4    indent
+  654:5    error  Expected indentation of 6 spaces but found 4    indent
+  657:3    error  Expected indentation of 4 spaces but found 2    indent
+  658:5    error  Expected indentation of 6 spaces but found 4    indent
+  659:5    error  Expected indentation of 6 spaces but found 4    indent
+  662:3    error  Expected indentation of 4 spaces but found 2    indent
+  663:5    error  Expected indentation of 6 spaces but found 4    indent
+  664:5    error  Expected indentation of 6 spaces but found 4    indent
+  666:3    error  Expected indentation of 4 spaces but found 2    indent
+  667:5    error  Expected indentation of 6 spaces but found 4    indent
+  669:3    error  Expected indentation of 4 spaces but found 2    indent
+  670:5    error  Expected indentation of 6 spaces but found 4    indent
+
+✖ 308 problems (308 errors, 0 warnings)
+
