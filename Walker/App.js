@@ -553,21 +553,21 @@ export class MapScreen extends React.Component {
 
   }
   componentDidMount() {
-    // navigator.geolocation.getCurrentPosition(
-    //   (position) => {
-    //     this.setState({
-    //       region:  {
-    //         latitude: position.coords.latitude,
-    //         longitude: position.coords.longitude,
-    //         latitudeDelta: this.state.region.latitudeDelta,
-    //         longitudeDelta: this.state.region.longitudeDelta,
-    //       },
-    //       error: null,
-    //     });
-    //   },
-    //   (error) => this.setState({error: error.message}),
-    //   {}
-    // );
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({
+          region:  {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: this.state.region.latitudeDelta,
+            longitudeDelta: this.state.region.longitudeDelta,
+          },
+          error: null,
+        });
+      },
+      (error) => this.setState({error: error.message}),
+      {}
+    );
     // this.interval = this.setInterval(() => {this.updatePosition()}, 3000);
     navigator.geolocation.watchPosition((position) => this.updatePosition(position));
   }
