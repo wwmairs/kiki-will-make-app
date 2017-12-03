@@ -425,7 +425,7 @@ export class ContactsScreen extends React.Component {
     }
     for (i = 0; i < numbers.length; i++) {
       console.log("want to send text to: ", numbers[i]);
-      // Communications.text(numbers[i]);
+      Communications.text(numbers[i]);
     }
   }
 
@@ -514,70 +514,65 @@ export class MapScreen extends React.Component {
     }
  //   this.itemsRef = firebaseApp.database().ref();
   }
-
-  componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({
-          region:  {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: this.state.region.latitudeDelta,
-            longitudeDelta: this.state.region.longitudeDelta,
-          },
-          error: null,
-        });
-      },
-      (error) => this.setState({error: error.message}),
-      {}
-    );
-    this.interval = this.setInterval(() => {this.updatePosition()}, 3000);
-  }
-
-  updatePosition() {
+  updatePosition(position) {
     console.log("updating...");
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({
-          region:  {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: this.state.region.latitudeDelta,
-            longitudeDelta: this.state.region.longitudeDelta,
-          },
-          error: null,
-        });
-        this.itemsRef.push({dest: this.state.end, 
-                            location: this.state.region});
-        const mode = "walking";
-        const origin = this.state.region;
-        const destination = this.state.end;
-        const APIKEY = "AIzaSyAUpGSyNbrvNx5YWkdEcw_r_82nU49Cr3Y";
-        const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude + "," + origin.longitude}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
-        fetch(url)
-        .then(response => response.json())
-        .then(responseJson => {
-            if (responseJson.routes.length) {
-                this.setState({
-                    coords: this.decode(responseJson.routes[0].overview_polyline.points) // definition below
-                });
-            }
-            // THIS IS IMPORTANT RIGHT HERE
-            // this is the part that checks whether someone has arrived
-            if ((responseJson.routes[0].legs.length == 1) &&
-                (responeJson.routes[0].legs[0].distance.values < 50)) {
-                // remove data from firebase
-                // notify friends
-                // navigate to completed walk screen
-            }
-            console.log(responseJson.routes[0].legs[0].distance.value);
-        }).catch(e => {console.warn(e)});
-
+    this.setState({
+      region:  {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        latitudeDelta: this.state.region.latitudeDelta,
+        longitudeDelta: this.state.region.longitudeDelta,
       },
-      (error) => this.setState({error: error.message}),
-      {}
-    );
+      error: null,
+    });
+    this.itemsRef.push({dest: this.state.end, 
+                        location: this.state.region});
+    const mode = "walking";
+    const origin = this.state.region;
+    const destination = this.state.end;
+    const APIKEY = "AIzaSyAUpGSyNbrvNx5YWkdEcw_r_82nU49Cr3Y";
+    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude + "," + origin.longitude}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
+    fetch(url)
+    .then(response => response.json())
+    .then(responseJson => {
+        if (responseJson.routes.length) {
+            this.setState({
+                coords: this.decode(responseJson.routes[0].overview_polyline.points) // definition below
+            });
+        }
+        // THIS IS IMPORTANT RIGHT HERE
+        // this is the part that checks whether someone has arrived
+        if ((responseJson.routes[0].legs.length == 1) &&
+            (responeJson.routes[0].legs[0].distance.values < 50)) {
+            // remove data from firebase
+            // notify friends
+            // navigate to completed walk screen
+        }
+        console.log(responseJson.routes[0].legs[0].distance.value);
+    }).catch(e => {console.warn(e)});
+
   }
+  componentDidMount() {
+    // navigator.geolocation.getCurrentPosition(
+    //   (position) => {
+    //     this.setState({
+    //       region:  {
+    //         latitude: position.coords.latitude,
+    //         longitude: position.coords.longitude,
+    //         latitudeDelta: this.state.region.latitudeDelta,
+    //         longitudeDelta: this.state.region.longitudeDelta,
+    //       },
+    //       error: null,
+    //     });
+    //   },
+    //   (error) => this.setState({error: error.message}),
+    //   {}
+    // );
+    // this.interval = this.setInterval(() => {this.updatePosition()}, 3000);
+    navigator.geolocation.watchPosition((position) => this.updatePosition(position));
+  }
+
+
   render () {
     const {params} = this.props.navigation.state;
     return (
