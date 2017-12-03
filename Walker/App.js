@@ -425,7 +425,7 @@ export class ContactsScreen extends React.Component {
     }
     for (i = 0; i < numbers.length; i++) {
       console.log("want to send text to: ", numbers[i]);
-      Communications.text(numbers[i]);
+      Communications.text(numbers[i], "HELLO");
     }
   }
 
@@ -440,7 +440,6 @@ export class ContactsScreen extends React.Component {
 
   }
 
-  // this doesn"t work
   removeSelectedContact(oldContact) {
     console.log("wanna remove this one:");
     console.log(oldContact);
