@@ -525,7 +525,7 @@ export class MapScreen extends React.Component {
       },
       error: null,
     });
-    this.itemsRef.push({dest: this.state.end, 
+    this.itemsRef.set({dest: this.state.end, 
                         location: this.state.region});
     const mode = "walking";
     const origin = this.state.region;
