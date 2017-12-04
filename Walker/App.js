@@ -403,7 +403,7 @@ export class ContactsScreen extends React.Component {
           </View>
           <Button
             style={styles.startButton}
-            onPress={() => {this.itemsRef.push({dest: this.state.end, 
+            onPress={() => {this.itemsRef.set({dest: this.state.end, 
                                                 location: this.state.start})
               this.sendMessages()
               navigate("Map", {start: this.state.start,
@@ -425,7 +425,7 @@ export class ContactsScreen extends React.Component {
     }
     for (i = 0; i < numbers.length; i++) {
       console.log("want to send text to: ", numbers[i]);
-      Communications.text(numbers[i], "HELLO");
+      Communications.text(numbers[i], "Click this link! https://walker-1d950.firebaseapp.com/");
     }
   }
 

@@ -8,10 +8,11 @@
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/4.7.0/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/4.7.0/firebase-auth.js"></script>
+    <!-- <script defer src="/__/firebase/4.7.0/firebase-auth.js"></script> -->
     <script defer src="/__/firebase/4.7.0/firebase-database.js"></script>
-    <script defer src="/__/firebase/4.7.0/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/4.7.0/firebase-storage.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_cFguCwilbij05SvAX0U-hp_oMh-7wak"></script>
+    <!-- <script defer src="/__/firebase/4.7.0/firebase-messaging.js"></script> -->
+    <!-- <script defer src="/__/firebase/4.7.0/firebase-storage.js"></script> -->
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
 
@@ -29,21 +30,73 @@
         body { border-top: 16px solid #ffa100; }
       }
     </style>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
   </head>
   <body>
-    <div id="message">
-      <h2>fuck!</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <div id="map"></div>
 
     <script>
-      
+      var lat, lng; 
+      var kiki, dest; 
 
+      function decode(t,e){for(var n,o,u=0,l=0,r=0,d= [],h=0,i=0,a=null,c=Math.pow(10,e||5);u<t.length;){a=null,h=0,i=0;do a=t.charCodeAt(u++)-63,i|=(31&a)<<h,h+=5;while(a>=32);n=1&i?~(i>>1):i>>1,h=i=0;do a=t.charCodeAt(u++)-63,i|=(31&a)<<h,h+=5;while(a>=32);o=1&i?~(i>>1):i>>1,l+=n,r+=o,d.push([l/c,r/c])}return d=d.map(function(t){return{lat:t[0],lng:t[1]}})}
+      // for the maps!
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: {lat: lat, lng: lng},
+          mapTypeId: 'terrain'
+        });
+        const mode = "walking";
+        console.log(lat, lng, dest);
+        const APIKEY = "AIzaSyAUpGSyNbrvNx5YWkdEcw_r_82nU49Cr3Y";
+        const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${lat + "," + lng}&destination=${dest}&key=${APIKEY}&mode=${mode}`;
+
+    // this shit HATES tufts secure; use tufts guest for demo
+    fetch(url)
+        .then(response => response.json())
+        .then(responseJson => {
+          // console.log(responseJson);
+          console.log(decode(responseJson.routes[0].overview_polyline.points))
+          var walkingPath = new google.maps.Polyline({
+            path: decode(responseJson.routes[0].overview_polyline.points),
+            geodesic: true,
+            strokeColoe: "#42aaf4",
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+          });
+          walkingPath.setMap(map);
+        }).catch(e => {console.warn(e)});
+      }
 
       document.addEventListener('DOMContentLoaded', function() {
+
+          
+          let app = firebase.app();
+           
+           console.log("about to try firebase.databse");
+            firebase.database().ref().on('value', function(snapshot){ 
+              console.log("blah");
+              console.log(snapshot.val().dest)
+              lat  = snapshot.val().location.latitude;
+              lng  = snapshot.val().location.longitude;
+              dest = snapshot.val().dest
+              console.log(lat, lng, dest);
+              initMap();
+            });
+
 
       // Create an instance of firebase.database.Reference
 
@@ -65,28 +118,12 @@
         
         // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 
-        try {
-          let app = firebase.app();
-           app.auth().onAuthStateChanged(user => { 
-           console.log("hello")
-
-            });
-            app.database().ref().on('value', snapshot => { 
-              console.log(snapshot)
-            });
-            
-            app.messaging().requestPermission().then(() => { });
-            app.storage().ref('/path/to/ref').getDownloadURL().then(() => { 
-
-            });
-        
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
-        }
+     
       });
     </script>
+<!--     <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_cFguCwilbij05SvAX0U-hp_oMh-7wak">
+    </script> -->
+    <!-- took this out &callback=initMap -->
   </body>
 </html>
