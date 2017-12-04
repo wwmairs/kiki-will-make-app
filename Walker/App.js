@@ -337,7 +337,10 @@ export class ContactsScreen extends React.Component {
     const {navigate} = this.props.navigation;
     return (
       <View style={{flex:1}}>
-        <View style={styles.contactsStyle}>
+      <View style={{flex:10,
+          backgroundColor: "#3498db", 
+          justifyContent: "center"}}>
+          <Text style = {styles.title}>   Text Your Pals </Text>
           <TextInput
             style={styles.input}
             placeholder={"Search for contacts"}
@@ -347,16 +350,16 @@ export class ContactsScreen extends React.Component {
             style={styles.contactList}
             dataSource={this.state.dataSource}
             renderRow={(rowData) => <TouchableHighlight underlayColor = "#008b8b" onPress = {this.addSelectedContact.bind(this, rowData)}> 
-            <Text>{rowData.givenName}</Text>
+            <Text style={styles.contactList}>{rowData.givenName}</Text>
             </TouchableHighlight>}
             />
           <View>
-            <Text>Contacts to notify</Text>
+            <Text style = {styles.center}>Contacts to Notify</Text>
             <ListView
               style={styles.contactList}
               dataSource={this.state.selectedDataSource}
               renderRow={(rowData) => <TouchableHighlight underlayColor = "#008b8b" onPress = {this.removeSelectedContact.bind(this, rowData)}> 
-            <Text>{rowData.givenName}</Text>
+            <Text style={styles.contactList}>{rowData.givenName}</Text>
             </TouchableHighlight>}
             />
           </View>
@@ -373,7 +376,7 @@ export class ContactsScreen extends React.Component {
             accessibilityLabel="Click here to start walk"
           />
         </View>
-      </View>
+        </View>
     );
   }
 
@@ -554,10 +557,16 @@ const styles = StyleSheet.create({
     color: "#FFF",
     width: 300,
     textAlign: "center",
+    flexDirection: 'row',
     opacity:0.9,
     fontWeight: "bold",
     fontSize: 35,
     marginBottom:40,
+    alignSelf: "center",
+  },
+  center: {
+    alignSelf: "center",
+    fontSize: 20,
   },
   container: {
     ...StyleSheet.absoluteFillObject,
@@ -580,19 +589,20 @@ const styles = StyleSheet.create({
     color: 255,
     paddingHorizontal:10,
     justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+
   },
 
   buttonContainer: {
     backgroundColor: "#c9e9ff",
     justifyContent: "center",
   },
-  contactsStyle:{
-    flex:1,   
-    justifyContent: "center", 
-    backgroundColor: "#b0e0e6", 
-    padding: 5
 
+  contactsStyle:{
+ 
   },
+
   buttonText :{
     textAlign: "center",
     color: "#FFFFFF"
@@ -602,6 +612,11 @@ const styles = StyleSheet.create({
   },
   contactList: {
     height: 50,
+    textAlign: "center",
+    alignSelf: "center",
+    fontSize: 18,
+
+
   },
 });
 
