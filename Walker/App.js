@@ -1,8 +1,6 @@
-/**
- * WILL AND KIKI MAKE AN APP!
- https://medium.com/dailyjs/react-native-email-authentication-with-firebase-4be20142b0a9
-
- https://hashnode.com/post/simple-login-system-using-react-native-firebase-and-nativebase-civwpo89u0lwyqe539bm66g0j
+/*
+ @ Will Mairs and Ki Ki Chan
+ 4 Dec 2017
  */
 
 import React, { Component } from "react"
@@ -33,7 +31,6 @@ var Contacts = require("react-native-contacts");
 
 Geocoder.setApiKey("AIzaSyAUpGSyNbrvNx5YWkdEcw_r_82nU49Cr3Y");
 
-// Initialize Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDWaoQS54F6CbLdUx7JIb6YRKBE35GVu5k",
   authDomain: "walker-1d950.firebaseapp.com",
@@ -53,32 +50,23 @@ export class LoginScreen extends React.Component {
   };
   constructor(props) {
     super(props);
-//    this.unsubscribe = null;
     this.state = {email: "",
                   password: "",
                   error:"",
                   loading: false,
                   message: "",
                 };
-
-//  this.itemsRef = firebaseApp.database().ref();
   };
 
    onLoginPress() {
         const {navigate} = this.props.navigation;
         this.setState({ error: "", loading: true });
-        console.log("login pressed");
-
         const { email, password } = this.state;
-        console.log(email);
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(() => { this.setState({ error: "", loading: false });
-                          console.log("bitch im authenticated");
                           navigate("Directions");
               })
             .catch(() => {
-              console.log("login didnt work");
-                //Login was not successful, let"s create a new account
               navigate("Signup", {email: this.state.email});
                 
             });
@@ -88,8 +76,6 @@ export class LoginScreen extends React.Component {
   const {navigate} = this.props.navigation;
     this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log("HI IM HERE TOOO BITCH IN COMPONENTDIDMOUNT")
-        console.log("what the fuck is user", user)
         navigate("Directions")
       }
     })
@@ -100,13 +86,16 @@ export class LoginScreen extends React.Component {
     return (
       <View style={{flex:1}}>
         <View style={{
-          flex:4,  //#b0e0e6
+          flex:4,  
           backgroundColor: "#3498db", 
           padding: 3,
           alignItems: "center",
           justifyContent: "center",
         }}>
-              <Text style = {styles.title}> Walker App! </Text>
+              <Image source={require('./icon.png')} 
+               style={{width: 100, height: 100}} /> 
+
+              <Text style = {styles.title}> Walker Pal </Text>
               <TextInput
                 style={styles.input}
                 placeholder="email"
@@ -124,14 +113,12 @@ export class LoginScreen extends React.Component {
               <TouchableOpacity style={styles.buttonContainer}>
                   <Button
                     onPress={() => navigate("Signup", {name: this.state.email})}
-
                     style = {styles.buttonText}
                     title="SIGNUP"
                     accessibilityLabel="Click this shit to login"
                   />
 
                   <Button
-                   // onPress={() => navigate("Directions", {name: this.state.email})}
                    onPress={this.onLoginPress.bind(this)}
 
                     style = {styles.buttonText}
@@ -158,27 +145,20 @@ export class SignupScreen extends React.Component {
                   error:[],
                   loaded: true,
                 };
-
-  //  this.itemsRef = firebaseApp.database().ref();
   }
   onSignUp() {
         this.setState({ error: "", loading: true });
         
         const { email, password } = this.state;
-        console.log("im here in onSignUp, email is:" + email + "and password is: " + password);
-                //Login was not successful, let"s create a new account
         firebase.auth().createUserWithEmailAndPassword(email, password)
 
                     .then(() => { this.setState({ error: "", loading: false })
-                      console.log("im also here for create")
                           })
                     .catch((e) => {
                         if (e.code == "auth/weak-password") {
                           alert(e.message);
                         }
                         this.setState({ error: "Authentication failed.", loading: false });
-                        console.log(e);
-                        console.log(this.state.error)
                     });
     }
 
@@ -187,7 +167,7 @@ export class SignupScreen extends React.Component {
     return (
       <View style={{flex:1}}>
         <View style={{
-          flex:4,  //#b0e0e6
+          flex:4,  
           backgroundColor: "#3498db", 
           padding: 3,
           alignItems: "center",
@@ -220,7 +200,6 @@ export class SignupScreen extends React.Component {
               
               <TouchableOpacity style={styles.buttonContainer}>
                   <Button
-                  // onPress={() => navigate("Directions", {name: this.state.username})}
                     onPress={this.onSignUp.bind(this)} 
                     style = {styles.buttonText}
                     title="Sign me up baby!!"
@@ -236,7 +215,6 @@ export class SignupScreen extends React.Component {
 
 export class DirectionsScreen extends React.Component {
   static navigationOptions = {
-    // title: this.props.navigation.username,
   };
   constructor(props) {
     super(props);
@@ -254,7 +232,6 @@ export class DirectionsScreen extends React.Component {
         params: this.props.navigation.state,
         coords: []
     }
-   // this.itemsRef = firebaseApp.database().ref();
   };
 
   componentDidMount() {
@@ -290,14 +267,7 @@ export class DirectionsScreen extends React.Component {
   render () {
     const {navigate} = this.props.navigation;
     return (
-      <View style={{flex:1}}>
-        <View style={{
-          flex:1, 
-          backgroundColor: "#b0e0e6", 
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
-          {/* react-native-maps ! ty airbnb */}
+    
           <View style={styles.container}>
             <MapView style={styles.map}
                      region={this.state.region}>
@@ -308,12 +278,7 @@ export class DirectionsScreen extends React.Component {
                 }}
               />
             </MapView>
-          </View>
-          {/*<TextInput
-            style={styles.input}
-            placeholder={"Start Location"}
-            onChangeText={(origin) => this.setState({origin})}
-          />*/}
+      
           <TextInput
             style={styles.input}
             placeholder="Where are you headed?"
@@ -327,8 +292,7 @@ export class DirectionsScreen extends React.Component {
             accessibilityLabel="Click here to start walk"
           />
         </View>
-        <View style={{}}/>
-      </View>
+        
     );
   }
 }
@@ -360,28 +324,23 @@ export class ContactsScreen extends React.Component {
   fetchData() {
     Contacts.getAll((err, contacts) => {
       if(err === "denied") {
-        // error
-        // console.warn(err);
       } else {
         this.setState({contacts});
         var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         var dataSource = ds.cloneWithRows(this.state.contacts);
         this.setState({dataSource});
       }
-      
     });
-
-
   }
 
   render () {
     const {navigate} = this.props.navigation;
     return (
       <View style={{flex:1}}>
-        <View style={{flex:4, backgroundColor: "#b0e0e6", padding: 10}}>
+        <View style={styles.contactsStyle}>
           <TextInput
             style={styles.input}
-            placeholder={"Search for contacts to notify"}
+            placeholder={"Search for contacts"}
             onChangeText={(name) => this.updateContactsList(name)}
             />
           <ListView
@@ -424,8 +383,7 @@ export class ContactsScreen extends React.Component {
       numbers.push(this.state.selectedContacts[i].phoneNumbers[0].number)
     }
     for (i = 0; i < numbers.length; i++) {
-      console.log("want to send text to: ", numbers[i]);
-      Communications.text(numbers[i], "Click this link! https://walker-1d950.firebaseapp.com/");
+      Communications.text(numbers[i], "Click this link to follow your friend's path home! https://walker-1d950.firebaseapp.com/");
     }
   }
 
@@ -441,22 +399,11 @@ export class ContactsScreen extends React.Component {
   }
 
   removeSelectedContact(oldContact) {
-    console.log("wanna remove this one:");
-    console.log(oldContact);
-    // const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    // var index = this.state.selectedContacts.indexOf(oldContact);
-    // this.setState(prevState => ({
-    //   selectedContacts: prevState.selectedContacts.splice(index, 1),
-    //   selectedDataSource: ds.cloneWithRows(prevState.selectedContacts.splice(index, 1))
-    // }))
-
   }
 
   updateContactsList(name){
     Contacts.getContactsMatchingString(name, (err, contacts) => {
         if(err === "denied") {
-          // error
-          // console.warn(err);
         } else {
           this.setState({contacts});
           var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -478,8 +425,6 @@ export class MapScreen extends React.Component {
     super(props);
     this.itemsRef = firebaseApp.database().ref();
     const {params} = this.props.navigation.state;
-
-    // this maps craziness is inspired by 
     // https://github.com/airbnb/react-native-maps/issues/929
     const mode = "walking";
     const origin = params.start;
@@ -487,13 +432,12 @@ export class MapScreen extends React.Component {
     const APIKEY = "AIzaSyAUpGSyNbrvNx5YWkdEcw_r_82nU49Cr3Y";
     const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude + "," + origin.longitude}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
 
-    // this shit HATES tufts secure; use tufts guest for demo
     fetch(url)
         .then(response => response.json())
         .then(responseJson => {
             if (responseJson.routes.length) {
                 this.setState({
-                    coords: this.decode(responseJson.routes[0].overview_polyline.points) // definition below
+                    coords: this.decode(responseJson.routes[0].overview_polyline.points)
                 });
             }
         }).catch(e => {console.warn(e)});
@@ -511,10 +455,8 @@ export class MapScreen extends React.Component {
         coords: [],
         end: params.end
     }
- //   this.itemsRef = firebaseApp.database().ref();
   }
   updatePosition(position) {
-    console.log("updating...");
     this.setState({
       region:  {
         latitude: position.coords.latitude,
@@ -536,18 +478,13 @@ export class MapScreen extends React.Component {
     .then(responseJson => {
         if (responseJson.routes.length) {
             this.setState({
-                coords: this.decode(responseJson.routes[0].overview_polyline.points) // definition below
+                coords: this.decode(responseJson.routes[0].overview_polyline.points) 
             });
         }
-        // THIS IS IMPORTANT RIGHT HERE
-        // this is the part that checks whether someone has arrived
+        // Checks whether someone has arrived
         if ((responseJson.routes[0].legs.length == 1) &&
             (responeJson.routes[0].legs[0].distance.values < 50)) {
-            // remove data from firebase
-            // notify friends
-            // navigate to completed walk screen
         }
-        console.log(responseJson.routes[0].legs[0].distance.value);
     }).catch(e => {console.warn(e)});
 
   }
@@ -567,7 +504,6 @@ export class MapScreen extends React.Component {
       (error) => this.setState({error: error.message}),
       {}
     );
-    // this.interval = this.setInterval(() => {this.updatePosition()}, 3000);
     navigator.geolocation.watchPosition((position) => this.updatePosition(position));
   }
 
@@ -611,7 +547,6 @@ const Walker = StackNavigator({
 
 });
 
-
 export default Walker;
 
 const styles = StyleSheet.create({
@@ -626,14 +561,15 @@ const styles = StyleSheet.create({
   },
   container: {
     ...StyleSheet.absoluteFillObject,
-    height: 400,
+    flex:1,
+    height: 600,
     width: 400,
-    justifyContent: "flex-end",
+    justifyContent: "center",
     alignItems: "center",
   },
   map: {
     ...StyleSheet.absoluteFillObject,
-    flex:1
+    flex:4
 
   },
   input: {
@@ -650,7 +586,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#c9e9ff",
     justifyContent: "center",
   },
+  contactsStyle:{
+    flex:1,   
+    justifyContent: "center", 
+    backgroundColor: "#b0e0e6", 
+    padding: 5
 
+  },
   buttonText :{
     textAlign: "center",
     color: "#FFFFFF"
