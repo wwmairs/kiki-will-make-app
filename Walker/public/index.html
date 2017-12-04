@@ -51,36 +51,32 @@
       var lat, lng; 
       var kiki, dest; 
 
-      function decode(t,e){for(var n,o,u=0,l=0,r=0,d= [],h=0,i=0,a=null,c=Math.pow(10,e||5);u<t.length;){a=null,h=0,i=0;do a=t.charCodeAt(u++)-63,i|=(31&a)<<h,h+=5;while(a>=32);n=1&i?~(i>>1):i>>1,h=i=0;do a=t.charCodeAt(u++)-63,i|=(31&a)<<h,h+=5;while(a>=32);o=1&i?~(i>>1):i>>1,l+=n,r+=o,d.push([l/c,r/c])}return d=d.map(function(t){return{lat:t[0],lng:t[1]}})}
       // for the maps!
-      function initMap() {
+      function initMap(callback) {
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 15,
           center: {lat: lat, lng: lng},
           mapTypeId: 'terrain'
         });
-        const mode = "walking";
-        console.log(lat, lng, dest);
-        const APIKEY = "AIzaSyAUpGSyNbrvNx5YWkdEcw_r_82nU49Cr3Y";
-        const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${lat + "," + lng}&destination=${dest}&key=${APIKEY}&mode=${mode}`;
-
-    // this shit HATES tufts secure; use tufts guest for demo
-    fetch(url)
-        .then(response => response.json())
-        .then(responseJson => {
-          // console.log(responseJson);
-          console.log(decode(responseJson.routes[0].overview_polyline.points))
-          var walkingPath = new google.maps.Polyline({
-            path: decode(responseJson.routes[0].overview_polyline.points),
-            geodesic: true,
-            strokeColoe: "#42aaf4",
-            strokeOpacity: 1.0,
-            strokeWeight: 2
-          });
-          walkingPath.setMap(map);
-        }).catch(e => {console.warn(e)});
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        directionsDisplay.setMap(map);
+        callback(directionsService, directionsDisplay);
       }
 
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        directionsService.route({
+          origin: {lat: lat, lng: lng},
+          destination: dest,
+          travelMode: 'WALKING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
       document.addEventListener('DOMContentLoaded', function() {
 
           
@@ -94,7 +90,7 @@
               lng  = snapshot.val().location.longitude;
               dest = snapshot.val().dest
               console.log(lat, lng, dest);
-              initMap();
+              initMap(calculateAndDisplayRoute);
             });
 
 
